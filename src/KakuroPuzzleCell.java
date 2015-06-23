@@ -1,29 +1,34 @@
 /**
- * Javadoc first introduction paragraph here!
+ * Creates a cell with a fixed number to act as a problem to be solved.
  *
- * @author Piyapat Russamitinakornkul 55090031
+ * @author Purit
+ * @author Marcus
+ * @author Piyapat Russamitinakornkul 1106291
+ * 
+ * @version 1
+ * @since 23/06/2015
  */
 public class KakuroPuzzleCell extends KakuroCell {
     /*******************
      * 1. Data Members *
      ******************/
-    private final int value;
-    private final int value2;
+    private final int downValue;
+    private final int rightValue;
 
     /**************************
      * 2. Default Constructor *
      *************************/
     /**
      * Creates a cell as a component of a Kakuro table as a clue for other solutions.
-     * @param id
-     * @param id2
-     * @param number
-     * @param number2 
+     * @param downID An identification of this cell and others in a down direction
+     * @param rightID A second identification of this cell and others to the right
+     * @param number The value for cells in a down direction (Can be null, but not both)
+     * @param number2 The value for cells to the right (Can be null, but not both)
      */
-    public KakuroPuzzleCell(String id, String id2, int number, int number2) {
-        super(id, id2);
-        value = number;
-        value2 = number2;
+    public KakuroPuzzleCell(String downID, String rightID, Integer number, Integer number2) {
+        super(downID, rightID);
+        downValue = number;
+        rightValue = number2;
         lockCell();
     }
 
@@ -34,15 +39,15 @@ public class KakuroPuzzleCell extends KakuroCell {
      * Returns a first sum (Puzzle) of this cell
      * @return A first value of this puzzle cell
      */
-    public int getValue() {
-        return value;
+    public int getDownValue() {
+        return downValue;
     }
     
     /**
      * Returns a second sum (Puzzle) of this cell
      * @return A second value of this puzzle cell
      */
-    public int getValue2() {
-        return value2;
+    public int getRightValue() {
+        return rightValue;
     }
 }

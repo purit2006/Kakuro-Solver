@@ -1,7 +1,12 @@
 /**
- * Javadoc first introduction paragraph here!
+ * Creates a cell to allow players to fill numbers for this game.
  *
- * @author Piyapat Russamitinakornkul 55090031
+ * @author Purit
+ * @author Marcus
+ * @author Piyapat Russamitinakornkul 1106291
+ * 
+ * @version 1
+ * @since 23/06/2015
  */
 public class KakuroPlayCell extends KakuroCell {
     /*******************
@@ -14,22 +19,22 @@ public class KakuroPlayCell extends KakuroCell {
      *************************/
     /**
      * Creates a cell as a component of a Kakuro table for filling a solution.
-     * @param id The identification of this cell
-     * @param id2 The second identification of this cell
+     * @param downID An identification of this cell and others in a down direction
+     * @param rightID A second identification of this cell and others to the right
      */
-    public KakuroPlayCell(String id, String id2) {
-        super(id, id2);
+    public KakuroPlayCell(String downID, String rightID) {
+        super(downID, rightID);
     }
     
     /**
      * Creates a cell as a component of a Kakuro table for filling a solution, 
      * given a number.
-     * @param id The identification of this cell
-     * @param id2 The second identification of this cell
+     * @param downID An identification of this cell and others in a down direction
+     * @param rightID A second identification of this cell and others to the right
      * @param number An initial given solution for a cell
      */
-    public KakuroPlayCell(String id, String id2, int number) {
-        super(id, id2);
+    public KakuroPlayCell(String downID, String rightID, int number) {
+        super(downID, rightID);
         value = number;
     }
 

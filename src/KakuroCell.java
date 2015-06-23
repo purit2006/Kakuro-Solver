@@ -1,7 +1,13 @@
 /**
- * Javadoc first introduction paragraph here!
+ * A class of all types of cells. Cannot be created. Please create subclasses of 
+ * this class instead.
  *
- * @author Piyapat Russamitinakornkul 55090031
+ * @author Purit
+ * @author Marcus
+ * @author Piyapat Russamitinakornkul 1106291
+ * 
+ * @version 1
+ * @since 16/06/2015
  */
 public abstract class KakuroCell {
     /*******************
@@ -16,12 +22,12 @@ public abstract class KakuroCell {
      *******************/
     /**
      * Creates a cell as a component of a Kakuro table.
-     * @param id The identification of this cell
-     * @param id2 The second identification of this cell
+     * @param downID  An identification of this cell and others in a down direction
+     * @param rightID  A second identification of this cell and others to the right
      */
-    public KakuroCell(String id, String id2) {
-        ID = id;
-        ID_2 = id2;
+    public KakuroCell(String downID, String rightID) {
+        ID = downID;
+        ID_2 = rightID;
     }
     
     /**************
@@ -31,7 +37,7 @@ public abstract class KakuroCell {
      * Getter method for obtaining a first identification of this cell.
      * @return The first ID of this cell
      */
-    public String getID() {
+    public String getDownID() {
         return ID;
     }
     
@@ -39,7 +45,7 @@ public abstract class KakuroCell {
      * Getter method for obtaining a second identification of this cell.
      * @return The second ID of this cell 
      */
-    public String getID2() {
+    public String getRightID() {
         return ID_2;
     }
     
