@@ -12,10 +12,6 @@ public class KakuroTable {
     /*******************
      * 1. Data Members *
      ******************/
-    // General Signals
-    public static final int PUZZLE = 0;
-    public static final int PLAY = 1;
-    public static final int LOCK = 2;
     // Object data
     private final int WIDTH;
     private final int HEIGHT;
@@ -49,20 +45,32 @@ public class KakuroTable {
      * @return <code>true</code>, if the cell has been successfully added
      */
     public boolean addCell(int x, int y, int cellType, Integer num1, Integer num2) {
+        // Check cell boundaries
         if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT))
             return false;
-        else {
-            String forID = Integer.toString(x) + Integer.toString(y);
-            if(cellType == PUZZLE)
-                table[x][y] = new KakuroPuzzleCell("D" + forID,
-                                                   "R" + forID,
-                                                    x,
-                                                    y);
-            else if(cellType == PLAY)
-                table[x][y] = new KakuroPlayCell("D" + forID, "R" + forID);
-            else if(cellType == LOCK)
-                table[x][y] = new KakuroPlayCell("D" + forID, "R" + forID);
+
+        // Generate a cell ID
+        String ID = Integer.toString(x) + Integer.toString(y);
+        if(cellType == KakuroCell.PUZZLE) {
+            // Create a cell table
+            table[x][y] = new KakuroCell("D" + ID, "R" + ID, KakuroCell.PUZZLE);
+            // Initialize cell with values
+            if(num1 != null)
+                table[x][y].setDownValue(num1);
+            if(num2 != null)
+                table[x][y].setRightValue(num2);
         }
+        else if(cellType == KakuroCell.PLAY)
+            // Create a cell table
+            table[x][y] = new KakuroCell("D" + ID, "R" + ID, KakuroCell.PLAY);
+        else if(cellType == KakuroCell.LOCK) {
+            // Create a cell table
+            table[x][y] = new KakuroCell("D" + ID, "R" + ID, KakuroCell.LOCK);
+            // Initialize cell with values
+            if(num1 != null)
+                table[x][y].setDownValue(num1);
+        }
+
         return true;
     }
     
@@ -73,6 +81,7 @@ public class KakuroTable {
      * @return A cell of the specified slot that was removed
      */
     public KakuroCell removeCell(int x, int y) {
+        // Check Boundaries
         if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT))
             return null;
         else {
@@ -82,11 +91,34 @@ public class KakuroTable {
         }
     }
     
-    public boolean fillCell(int x, int y, int value) {
-        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT))
+    /**
+     * Fills a specified cell with given values. Can be null
+     * @param x Table's "X" position
+     * @param y Table's "Y" position
+     * @param value A first <code>value</code> of the cell
+     * @param value2 A first <code>value</code> of the cell (For puzzle cells only)
+     * @return 
+     */
+    public boolean fillCell(int x, int y, Integer value, Integer value2) {
+        // Check Boundaries and values
+        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT) || value == null)
             return false;
-        else if(table[x][y] instanceof KakuroPlayCell)
-            ;
-        return true;
+        // Fill the cell with a given value
+        else if(table[x][y].isPlayCell() || table[x][y].isLockCell())
+            return table[x][y].setDownValue(value);
+        else if(table[x][y].isPuzzleCell() && value2 != null) {
+            return table[x][y].setDownValue(value) && table[x][y].setRightValue(value);
+        }
+        
+        return false;
+    }
+    
+    public Integer clearCell(int x, int y) {
+        // Check Boundaries
+        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT) || !table[x][y].isPlayCell())
+            return null;
+        // Remove the value from the cell
+        return table[x][y].clearCell();
+        
     }
 }
