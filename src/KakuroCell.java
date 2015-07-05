@@ -1,25 +1,26 @@
+import java.io.Serializable;
+
 /**
  * A class of Kakuro cells, with full specification in one class.<br />
- * This class contains 5 categories of usable methods:<br />
+ * This class contains 6 categories of usable methods:<br />
  * <ol>
  * <li>ID Getter Methods</li>
  * <li>Methods for filling cell values</li>
  * <li>Methods for getting cell values</li>
  * <li>Getters for determining cell types</li>
  * <li>Overridden methods</li>
+ * <li>Methods for locking / unlocking cells</li>
  * </ol>
- * And 1 category of internal methods
- * - Methods for locking / unlocking cells
+ * Version 1 since 16/06/2015
  *
  * @author Purit
- * @author Marcus
+ * @author Marcus Vinicius Pereira Araujo 1106149
  * @author Piyapat Russamitinakornkul 1106291
  * 
  * @version 2
- * @since 16/06/2015
  * @since 30/06/2015
  */
-public class KakuroCell implements Comparable<KakuroCell> {
+public class KakuroCell implements Comparable<KakuroCell>, Serializable {
     /*******************
      * 1. Data Members *
      ******************/
@@ -27,7 +28,8 @@ public class KakuroCell implements Comparable<KakuroCell> {
     public static final int PUZZLE = 0;
     public static final int PLAY = 1;
     public static final int LOCK = 2;
-    private static final String[] CELL_TYPE = {"PUZZLE", "PLAY", "LOCK"};
+    public static final String[] CELL_TYPE = {"PUZZLE", "PLAY", "LOCK"};
+    
     private static final String COMPARE_ERROR =
             "Only cells with either \"PLAY\" or \"LOCK\" type can be compared.";
     
@@ -82,17 +84,9 @@ public class KakuroCell implements Comparable<KakuroCell> {
     /**
      * Fills a puzzle value for cells in a vertical direction.
      * @param value A number to be filled into the cell
-     * @return <code>true</code>, if the cell could be filled
      */
-    public boolean setDownValue(int value) {
-        if(isFixedCell())
-            return false;
-        else {
-            downValue = value;
-            if(!isPlayCell())
-                fixCell();
-            return true;
-        }
+    public void setDownValue(int value) {
+        downValue = value;
     }
     
     /**
@@ -100,30 +94,29 @@ public class KakuroCell implements Comparable<KakuroCell> {
      * puzzle cells, can only be called once. A second time will always result 
      * in returning <code>false</code> value.
      * @param value A number to be filled into the cell
-     * @return <code>true</code>, if the cell could be filled
      */
-    public boolean setRightValue(int value) {
-        if(isFixedCell() || !isPuzzleCell())
-            return false;
-        else {
-            rightValue = value;
-            fixCell();
-            return true;
-        }
+    public void setRightValue(int value) {
+        rightValue = value;
     }
     
     /**
-     * Clears a value in a cell
+     * Clears a first value in a cell
      * @return <code>null</code>, if the cell does not contain a value
      */
-    public Integer clearCell() {
-        if(isPlayCell()) {
-            int results = downValue;
-            downValue = 0;
-            return results;
-        }
-        
-        return null;
+    public int clearDownValue() {
+        int results = downValue;
+        downValue = 0;
+        return results;
+    }
+    
+    /**
+     * Clears a second value in a cell
+     * @return <code>null</code>, if the cell does not contain a value
+     */
+    public int clearRightValue() {
+        int results = rightValue;
+        rightValue = 0;
+        return results;
     }
     
     /**************************************
@@ -151,26 +144,17 @@ public class KakuroCell implements Comparable<KakuroCell> {
     /**
      * Unlocks the cell to allow modifications. Not allowed for <code>PLAY</code> 
      * cell type.
-     * @return <code>true</code>, if the cell could be fixed
      */
-    private boolean fixCell() {
-        if(!isPlayCell()) {
-            isFixed = true;
-            return true;
-        }
-        return false;
+    public void fixCell() {
+        isFixed = true;
     }
     
     /**
      * Unlocks the cell to allow modifications. Not allowed for <code>LOCK</code> 
      * and <code>PUZZLE</code> cell type.
-     * @return <code>true</code>, if the cell could be fixed
      */
-    private boolean unfixCell() {
-        if(isPlayCell())
-            return false;
+    public void unfixCell() {
         isFixed = false;
-        return true;
     }
     
     /**
