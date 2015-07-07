@@ -1,12 +1,13 @@
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -34,12 +35,15 @@ public class KakuroGUI extends JFrame {
     final private static int CELL_SIZE = 48;
     
     // 1.2 Game Data
+    // 1.2.1 Game Component table and maps
     private KakuroTable table;
+    private GridLayout puzzle;
+    private JComponent[][] playMap;
+    // 1.2.2 Input mechanisms
     private int currentX;
     private int currentY;
     
     // 1.3 GUI Components
-    private GridLayout puzzle;
     final private JPanel puzzleRow = new JPanel();
     final private JPanel inputRow = new JPanel();
     // 1.3.1 Input Buttons
@@ -47,8 +51,6 @@ public class KakuroGUI extends JFrame {
     final private ImageIcon[] buttonsIcon = new ImageIcon[9];
     final private ImageIcon[] buttonsPressed = new ImageIcon[9];
     final private ImageIcon[] buttonsHovered = new ImageIcon[9];
-    // 1.3.2 Game Buttons
-    private JButton[][] playMap;
     
     /**************************
      * 2. Default Constructor *
@@ -61,9 +63,32 @@ public class KakuroGUI extends JFrame {
         setTitle(TITLE);
         setIconImage(new ImageIcon(IMAGE_PATH + "icon" + IMAGE_EXTENSION).getImage());
         // Program Layout: Box layout from top to bottom
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        setLayout(new FlowLayout());
 
-        // Create GUI Components
+        // Initiate GUI Components
+        setup();
+        
+        // Add GUI Components to the main window
+        add(puzzleRow);
+        add(inputRow);
+        pack();
+        
+        // Open the program's main window to the user
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+    
+    /*********************
+     * 3. Set-up Methods *
+     *********************/
+    private void setup() {
+        createInputButtons();
+    }
+    
+    private void createInputButtons() {
+        // Create a layout for placing buttons
+        inputRow.setLayout(new GridLayout(3 ,3 , TABLE_GAP, TABLE_GAP));
+        
         for(int i = 0 ; i < inputButtons.length ; ++i) {
             // Create image for buttons for entering numbers
             buttonsIcon[i] = new ImageIcon(
@@ -99,13 +124,15 @@ public class KakuroGUI extends JFrame {
                     inputButtons[j].setIcon(buttonsIcon[j]);
                 }
             });
-            
+            // Set button operations after being pressed
             inputButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    // Apply new number image to the selected cell
-                    playMap[currentX][currentY].setIcon(new ImageIcon(
+                    // Apply a new number image to the selected cell
+                    JButton temp = (JButton)playMap[currentX][currentY];
+                    temp.setIcon(new ImageIcon(
                         IMAGE_PATH + "num" + (j + 1) + IMAGE_EXTENSION));
+                    table.fillCell(currentX, currentY, j + 1);
                     // Disable all input numbers
                     disableInputs();
                 }
@@ -113,46 +140,50 @@ public class KakuroGUI extends JFrame {
             
             inputRow.add(inputButtons[i]);
         }
-        
-        add(puzzleRow);
-        add(inputRow);
-        pack();
-        
-        // Open the program window to the user
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
     }
 
-    /**************
-     * 3. Methods *
-     *************/
+    /************************
+     * 4. Operation Methods *
+     ************************/
     /**
      * Generates a Kakuro table to play a game
      * @param game A Kakuro puzzle to be played
      */
     public void loadPuzzle(KakuroTable game) {
         // Configure puzzle data
-        playMap = new JButton[game.getWidth()][game.getHeight()];
+        playMap = new JComponent[game.getWidth()][game.getHeight()];
         puzzle = new GridLayout(game.getWidth(),
                                 game.getHeight(),
                                 TABLE_GAP,
                                 TABLE_GAP);
+        table = game;
         
         // Create puzzle
         for(int i = 0 ; i < game.getWidth() ; ++i)
             for(int j = 0 ; j < game.getHeight() ; ++j) {
                 // Create a black image for "null" cells
-                if(game.getCell(i, j) == null)
-                    puzzleRow.add(new JLabel(new ImageIcon(
-                        IMAGE_PATH + "void" + IMAGE_EXTENSION)));
+                if(game.getCell(i, j) == null) {
+                    // Create a new cell
+                    JLabel temp = new JLabel(new ImageIcon(
+                        IMAGE_PATH + "void" + IMAGE_EXTENSION));
+                    // Add cells to the GUI Mechanism
+                    playMap[i][j] = temp;
+                    puzzleRow.add(playMap[i][j]);
+                }
                 // Create a fixed number image for "LOCK" cells
                 else if(game.getCell(i, j).getCellType().
-                        compareTo(KakuroCell.CELL_TYPE[KakuroCell.LOCK]) == 0)
-                    puzzleRow.add(new JLabel(new ImageIcon(
-                        IMAGE_PATH + "num" + game.getCell(i, j).clearDownValue() + IMAGE_EXTENSION)));
+                        compareTo(KakuroCell.CELL_TYPE[KakuroCell.LOCK]) == 0) {
+                    // Create a new cell
+                    JLabel temp = new JLabel(new ImageIcon(
+                        IMAGE_PATH + "num" + game.getCell(i, j).getDownValue() + IMAGE_EXTENSION));
+                    // Add cells to the GUI Mechanism
+                    playMap[i][j] = temp;
+                    puzzleRow.add(playMap[i][j]);
+                }
                 // Create a blank white image for "PLAY" cells
                 else if(game.getCell(i, j).getCellType().
                         compareTo(KakuroCell.CELL_TYPE[KakuroCell.PLAY]) == 0) {
+                    // Create a new JButton for a "PLAY" cell
                     JButton temp = new JButton(new ImageIcon(
                         IMAGE_PATH + "blank" + IMAGE_EXTENSION));
                     temp.setBorder(null);
@@ -169,14 +200,30 @@ public class KakuroGUI extends JFrame {
                             currentY = y;
                         }
                     });
-                    
+                    // Add cells to the GUI Mechanism
                     playMap[i][j] = temp;
-                    puzzleRow.add(temp);
+                    puzzleRow.add(playMap[i][j]);
                 }
             }
         
         // Set puzzle to the game
         puzzleRow.setLayout(puzzle);
+    }
+    
+    /**
+     * Allows all number buttons (game inputs) to be pressed
+     */
+    public void enableInputs() {
+        for(int i = inputButtons.length - 1 ; i >= 0 ; --i)
+            inputButtons[i].setEnabled(true);
+    }
+    
+    /**
+     * Forbids all number buttons (game inputs) to be pressed
+     */
+    public void disableInputs() {
+        for(int i = inputButtons.length - 1 ; i >= 0 ; --i)
+            inputButtons[i].setEnabled(false);
     }
     
     /**
@@ -196,20 +243,4 @@ public class KakuroGUI extends JFrame {
     public int getHeight() {
         return table.getHeight();
     }*/
-    
-    /**
-     * Allows all number buttons (game inputs) to be pressed
-     */
-    public void enableInputs() {
-        for(int i = inputButtons.length - 1 ; i >= 0 ; --i)
-            inputButtons[i].setEnabled(true);
-    }
-    
-    /**
-     * Forbids all number buttons (game inputs) to be pressed
-     */
-    public void disableInputs() {
-        for(int i = inputButtons.length - 1 ; i >= 0 ; --i)
-            inputButtons[i].setEnabled(false);
-    }
 }

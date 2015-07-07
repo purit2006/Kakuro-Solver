@@ -1,15 +1,18 @@
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
- * Creates a Kakuro table for playing game.
- * Version 1 since 16/06/2015
+ * Creates a Kakuro table for playing game.</br />
+ * Version 1 since 16/06/2015<br />
+ * Version 2 since 30/06/2015
  *
  * @author Purit
  * @author Marcus Vinicius Pereira Araujo 1106149
  * @author Piyapat Russamitinakornkul 1106291
  * 
- * @version 2
- * @since 30/06/2015
+ * @version 2.1
+ * @since 07/07/2015
  */
 public class KakuroTable implements Serializable {
     /*******************
@@ -20,9 +23,9 @@ public class KakuroTable implements Serializable {
     private final int HEIGHT;
     private KakuroCell[][] table;
 
-    /**************************
-     * 2. Default Constructor *
-     *************************/
+    /*******************
+     * 2. Constructors *
+     ******************/
     /**
      * Creates a Kakuro table with a specified <code>width</code> and <code>height</code>.
      * @param width
@@ -178,10 +181,20 @@ public class KakuroTable implements Serializable {
     
     /**
      * Records the implemented puzzle to a memory storage.
-     * @param filepath A path to the location of storing this <code>KakuroTable</code>
+     * @param filePath A path to the location of storing this <code>KakuroTable</code>
      * @return <code>true</code>, if the file successfully saved
      */
-    public boolean saveFile(String filepath) {
-        return false;
+    public boolean saveFile(String filePath) {
+        try(ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(filePath))) {
+
+            file.writeObject(this);
+            file.close();
+            
+            return true;
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
