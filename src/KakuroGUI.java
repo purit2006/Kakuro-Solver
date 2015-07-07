@@ -13,7 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * /**
  * Creates a GUI for playing Kakuro game.
  *
  * @author Purit
@@ -64,7 +63,6 @@ public class KakuroGUI extends JFrame {
         setIconImage(new ImageIcon(IMAGE_PATH + "icon" + IMAGE_EXTENSION).getImage());
         // Program Layout: Box layout from top to bottom
         setLayout(new FlowLayout());
-        //setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
         // Initiate GUI Components
         setup();
@@ -190,20 +188,47 @@ public class KakuroGUI extends JFrame {
                     temp.setBorder(null);
                     temp.setContentAreaFilled(false);
                     
+                    // Add cells to the GUI Mechanism
+                    playMap[i][j] = temp;
+                    puzzleRow.add(playMap[i][j]);
+                    
                     // Record current cell data when this "PLAY" cell is selected
                     final int x = i, y = j;
                     temp.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent evt) {
+                            int value = table.getCell(x, y).getDownValue();
+                            JButton temp = (JButton)(playMap[x][y]);
+                            
                             enableInputs();
                             
+                            try {
+                                // Color selected cell with yellow
+                                if(value == 0)
+                                    temp.setIcon(new ImageIcon(
+                                    IMAGE_PATH + "blanky" + IMAGE_EXTENSION));
+                                else
+                                    temp.setIcon(new ImageIcon(
+                                    IMAGE_PATH + "num" + Integer.toString(value) + "y" + IMAGE_EXTENSION));
+                                
+                                temp = (JButton)playMap[currentX][currentY];
+                                value = table.getCell(currentX, currentY).getDownValue();
+                                
+                                // Change the color of previous cell back to white
+                                if(value == 0)
+                                    temp.setIcon(new ImageIcon(
+                                    IMAGE_PATH + "blank" + IMAGE_EXTENSION));
+                                else
+                                    temp.setIcon(new ImageIcon(
+                                    IMAGE_PATH + "num" + Integer.toString(value) + IMAGE_EXTENSION));
+                            }
+                            catch(Exception e) {}
+                            
+                            // Set current selected cell data for input operations
                             currentX = x;
                             currentY = y;
                         }
                     });
-                    // Add cells to the GUI Mechanism
-                    playMap[i][j] = temp;
-                    puzzleRow.add(playMap[i][j]);
                 }
             }
         
