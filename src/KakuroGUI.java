@@ -203,7 +203,7 @@ public class KakuroGUI extends JFrame {
                             enableInputs();
                             
                             try {
-                                // Color selected cell with yellow
+                                // Color the selected cell with yellow
                                 if(value == 0)
                                     temp.setIcon(new ImageIcon(
                                     IMAGE_PATH + "blanky" + IMAGE_EXTENSION));
@@ -215,12 +215,14 @@ public class KakuroGUI extends JFrame {
                                 value = table.getCell(currentX, currentY).getDownValue();
                                 
                                 // Change the color of previous cell back to white
-                                if(value == 0)
-                                    temp.setIcon(new ImageIcon(
-                                    IMAGE_PATH + "blank" + IMAGE_EXTENSION));
-                                else
-                                    temp.setIcon(new ImageIcon(
-                                    IMAGE_PATH + "num" + Integer.toString(value) + IMAGE_EXTENSION));
+                                if(currentX != x || currentY != y) {
+                                    if(value == 0)
+                                        temp.setIcon(new ImageIcon(
+                                        IMAGE_PATH + "blank" + IMAGE_EXTENSION));
+                                    else
+                                        temp.setIcon(new ImageIcon(
+                                        IMAGE_PATH + "num" + Integer.toString(value) + IMAGE_EXTENSION));
+                                }
                             }
                             catch(Exception e) {}
                             
