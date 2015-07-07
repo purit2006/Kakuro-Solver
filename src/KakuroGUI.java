@@ -64,6 +64,7 @@ public class KakuroGUI extends JFrame {
         setIconImage(new ImageIcon(IMAGE_PATH + "icon" + IMAGE_EXTENSION).getImage());
         // Program Layout: Box layout from top to bottom
         setLayout(new FlowLayout());
+        //setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
         // Initiate GUI Components
         setup();
@@ -162,7 +163,7 @@ public class KakuroGUI extends JFrame {
         for(int i = 0 ; i < game.getWidth() ; ++i)
             for(int j = 0 ; j < game.getHeight() ; ++j) {
                 // Create a black image for "null" cells
-                if(game.getCell(i, j) == null) {
+                if(game.getCellType(i, j) == null) {
                     // Create a new cell
                     JLabel temp = new JLabel(new ImageIcon(
                         IMAGE_PATH + "void" + IMAGE_EXTENSION));
@@ -171,7 +172,7 @@ public class KakuroGUI extends JFrame {
                     puzzleRow.add(playMap[i][j]);
                 }
                 // Create a fixed number image for "LOCK" cells
-                else if(game.getCell(i, j).getCellType().
+                else if(game.getCellType(i, j).
                         compareTo(KakuroCell.CELL_TYPE[KakuroCell.LOCK]) == 0) {
                     // Create a new cell
                     JLabel temp = new JLabel(new ImageIcon(
@@ -181,7 +182,7 @@ public class KakuroGUI extends JFrame {
                     puzzleRow.add(playMap[i][j]);
                 }
                 // Create a blank white image for "PLAY" cells
-                else if(game.getCell(i, j).getCellType().
+                else if(game.getCellType(i, j).
                         compareTo(KakuroCell.CELL_TYPE[KakuroCell.PLAY]) == 0) {
                     // Create a new JButton for a "PLAY" cell
                     JButton temp = new JButton(new ImageIcon(
