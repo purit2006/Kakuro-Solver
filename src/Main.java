@@ -59,6 +59,36 @@ public class Main {
         puzzle.addPlayCell(7, 6);
         puzzle.addPlayCell(7, 7);
         
+        // first row
+        puzzle.addPuzzleCell(0, 1, 23, 0);
+        puzzle.addPuzzleCell(0, 2, 30, 0);  
+        puzzle.addPuzzleCell(0, 5, 27, 0);
+        puzzle.addPuzzleCell(0, 6, 12, 0);
+        puzzle.addPuzzleCell(0, 7, 16, 0);
+        // second row
+        puzzle.addPuzzleCell(1, 0, 0, 16);
+        puzzle.addPuzzleCell(1, 4, 17, 24);  
+        // third row
+        puzzle.addPuzzleCell(2, 0, 0, 17);
+        puzzle.addPuzzleCell(2, 3, 15, 29);  
+        // fourth row
+        puzzle.addPuzzleCell(3, 0, 0, 35);
+        puzzle.addPuzzleCell(3, 6, 12, 0);  
+        // fifth row
+        puzzle.addPuzzleCell(4, 1, 0, 7);
+        puzzle.addPuzzleCell(4, 4, 7, 8);  
+        puzzle.addPuzzleCell(4, 7, 7, 0);
+        // sixth row
+        puzzle.addPuzzleCell(5, 1, 11, 0);  
+        puzzle.addPuzzleCell(5, 2, 10, 16);
+        // seventh row
+        puzzle.addPuzzleCell(6, 0, 0, 21);  
+        puzzle.addPuzzleCell(6, 5, 0, 5);
+        // eighth row
+        puzzle.addPuzzleCell(7, 0, 0, 6);  
+        puzzle.addPuzzleCell(7, 5, 0, 3);
+        
+        
         game.loadPuzzle(puzzle);
     }
 }
