@@ -198,6 +198,45 @@ public class KakuroTable implements Serializable {
         return table[x][y].getCellType();
     }
     
+    /**
+     * Tells whether the cell at a given position in this table is a type of 
+     * <code>LOCK</code>.
+     * @param x Table's "X" position
+     * @param y Table's "Y" position
+     * @return <code>true</code>, if the cell is a <code>LOCK</code> type
+     */
+    public boolean isLockCell(int x, int y) {
+        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT) || table[x][y] == null)
+            return false;
+        return table[x][y].isLockCell();
+    }
+    
+    /**
+     * Tells whether the cell at a given position in this table is a type of 
+     * <code>PLAY</code>.
+     * @param x Table's "X" position
+     * @param y Table's "Y" position
+     * @return <code>true</code>, if the cell is a <code>PLAY</code> type
+     */
+    public boolean isPlayCell(int x, int y) {
+        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT) || table[x][y] == null)
+            return false;
+        return table[x][y].isPlayCell();
+    }
+    
+    /**
+     * Tells whether the cell at a given position in this table is a type of 
+     * <code>PUZZLE</code>.
+     * @param x Table's "X" position
+     * @param y Table's "Y" position
+     * @return <code>true</code>, if the cell is a <code>PUZZLE</code> type
+     */
+    public boolean isPuzzleCell(int x, int y) {
+        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT) || table[x][y] == null)
+            return false;
+        return table[x][y].isPuzzleCell();
+    }
+    
     /**************
      * 4. Getters *
      **************/

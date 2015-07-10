@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -7,10 +8,16 @@ import javax.swing.JPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.io.File;
 
 /**
  * Creates a GUI for playing Kakuro game.
@@ -27,11 +34,21 @@ public class KakuroGUI extends JFrame {
      * 1. Data Members *
      ******************/
     // 1.1 Constants
+    // 1.1.1 GUI Values
     final private static int TABLE_GAP = 1;
     final private static String TITLE = "Kakuro Solver";
+    // 1.1.2 Image Paths
     final private static String IMAGE_EXTENSION = ".png";
     final private static String IMAGE_PATH = "buttons/";
+    // 1.1.3 Cell size Properties
     final private static int CELL_SIZE = 48;
+    // 1.1.4 Puzzle Cell Properties
+    final private static int DOWN_X = 5;
+    final private static int DOWN_Y = 40;
+    final private static int RIGHT_X = 28;
+    final private static int RIGHT_Y = 16;
+    final private static int FONT_SIZE = 16;
+    final private static String FONT_NAME = "Times New Roman";
     
     // 1.2 Game Data
     // 1.2.1 Game Component table and maps
@@ -170,8 +187,7 @@ public class KakuroGUI extends JFrame {
                     puzzleRow.add(playMap[i][j]);
                 }
                 // Create a fixed number image for "LOCK" cells
-                else if(game.getCellType(i, j).
-                        compareTo(KakuroCell.CELL_TYPE[KakuroCell.LOCK]) == 0) {
+                else if(game.isLockCell(i, j)) {
                     // Create a new cell
                     JLabel temp = new JLabel(new ImageIcon(
                         IMAGE_PATH + "num" + game.getCell(i, j).getDownValue() + IMAGE_EXTENSION));
@@ -180,8 +196,7 @@ public class KakuroGUI extends JFrame {
                     puzzleRow.add(playMap[i][j]);
                 }
                 // Create a blank white image for "PLAY" cells
-                else if(game.getCellType(i, j).
-                        compareTo(KakuroCell.CELL_TYPE[KakuroCell.PLAY]) == 0) {
+                else if(game.isPlayCell(i, j)) {
                     // Create a new JButton for a "PLAY" cell
                     JButton temp = new JButton(new ImageIcon(
                         IMAGE_PATH + "blank" + IMAGE_EXTENSION));
@@ -231,6 +246,42 @@ public class KakuroGUI extends JFrame {
                             currentY = y;
                         }
                     });
+                }
+                // Create a representation for "PUZZLE" cells
+                else if(table.isPuzzleCell(i, j)) {
+                    int down = table.getCell(i, j).getDownValue(),
+                        right = table.getCell(i, j).getRightValue();
+                    BufferedImage cell;
+                    Graphics pen;
+                    JLabel temp;
+                    
+                    try {
+                        if(down == 0)
+                            cell = ImageIO.read(new File(
+                                    IMAGE_PATH + "puzzleR" + IMAGE_EXTENSION));
+                        else if(right == 0)
+                            cell = ImageIO.read(new File(
+                                    IMAGE_PATH + "puzzleD" + IMAGE_EXTENSION));
+                        else
+                            cell = ImageIO.read(new File(
+                                    IMAGE_PATH + "puzzle" + IMAGE_EXTENSION));
+                        
+                        // Write text to images
+                        pen = cell.getGraphics();
+                        pen.setColor(Color.black);
+                        pen.setFont(new Font(FONT_NAME, Font.PLAIN, FONT_SIZE));
+                        if(right != 0)
+                            pen.drawString(Integer.toString(right), RIGHT_X, RIGHT_Y);
+                        if(down != 0)
+                            pen.drawString(Integer.toString(down), DOWN_X, DOWN_Y);
+                        pen.dispose();
+
+                        // Add created images to some values
+                        temp = new JLabel(new ImageIcon((Image)cell));
+                        playMap[i][j] = temp;
+                        puzzleRow.add(playMap[i][j]);
+                    }
+                    catch(Exception e) {}
                 }
             }
         
