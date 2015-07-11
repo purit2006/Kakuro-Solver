@@ -22,43 +22,10 @@ public class Main {
         KakuroGUI game = new KakuroGUI();
         
         KakuroTable puzzle = new KakuroTable(WIDTH, HEIGHT);
-        puzzle.addPlayCell(1, 1);
-        puzzle.addPlayCell(1, 2);
-        puzzle.addPlayCell(1, 5);
-        puzzle.addPlayCell(1, 6);
-        puzzle.addPlayCell(1, 7);
-        puzzle.addPlayCell(2, 1);
-        puzzle.addPlayCell(2, 2);
-        puzzle.addPlayCell(2, 4);
-        puzzle.addPlayCell(2, 5);
-        puzzle.addPlayCell(2, 6);
-        puzzle.addPlayCell(2, 7);
-        puzzle.addPlayCell(3, 1);
-        puzzle.addPlayCell(3, 2);
-        puzzle.addPlayCell(3, 3);
-        puzzle.addPlayCell(3, 4);
-        puzzle.addPlayCell(3, 5);
-        puzzle.addPlayCell(4, 2);
-        puzzle.addPlayCell(4, 3);
-        puzzle.addPlayCell(4, 5);
-        puzzle.addPlayCell(4, 6);
-        puzzle.addPlayCell(5, 3);
-        puzzle.addPlayCell(5, 4);
-        puzzle.addPlayCell(5, 5);
-        puzzle.addPlayCell(5, 6);
-        puzzle.addPlayCell(5, 7);
-        puzzle.addPlayCell(6, 1);
-        puzzle.addPlayCell(6, 2);
-        puzzle.addPlayCell(6, 3);
-        puzzle.addPlayCell(6, 4);
-        puzzle.addPlayCell(6, 6);
-        puzzle.addPlayCell(6, 7);
-        puzzle.addPlayCell(7, 1);
-        puzzle.addPlayCell(7, 2);
-        puzzle.addPlayCell(7, 3);
-        puzzle.addPlayCell(7, 6);
-        puzzle.addPlayCell(7, 7);
         
+        /****************
+         * Puzzle Cells *
+         ****************/
         // first row
         puzzle.addPuzzleCell(0, 1, 23, 0);
         puzzle.addPuzzleCell(0, 2, 30, 0);  
@@ -88,7 +55,53 @@ public class Main {
         puzzle.addPuzzleCell(7, 0, 0, 6);  
         puzzle.addPuzzleCell(7, 5, 0, 3);
         
-        
+        /**************
+         * Play Cells *
+         **************/
+        // first row
+        puzzle.addPlayCell(1, 1);
+        puzzle.addPlayCell(1, 2);
+        puzzle.addPlayCell(1, 5);
+        puzzle.addPlayCell(1, 6);
+        puzzle.addPlayCell(1, 7);
+        // second row
+        puzzle.addPlayCell(2, 1);
+        puzzle.addPlayCell(2, 2);
+        puzzle.addPlayCell(2, 4);
+        puzzle.addPlayCell(2, 5);
+        puzzle.addPlayCell(2, 6);
+        puzzle.addPlayCell(2, 7);
+        // third row
+        puzzle.addPlayCell(3, 1);
+        puzzle.addPlayCell(3, 2);
+        puzzle.addPlayCell(3, 3);
+        puzzle.addPlayCell(3, 4);
+        puzzle.addPlayCell(3, 5);
+        // forth row
+        puzzle.addPlayCell(4, 2);
+        puzzle.addPlayCell(4, 3);
+        puzzle.addPlayCell(4, 5);
+        puzzle.addPlayCell(4, 6);
+        // fifth row
+        puzzle.addPlayCell(5, 3);
+        puzzle.addPlayCell(5, 4);
+        puzzle.addPlayCell(5, 5);
+        puzzle.addPlayCell(5, 6);
+        puzzle.addPlayCell(5, 7);
+        // sixth row
+        puzzle.addPlayCell(6, 1);
+        puzzle.addPlayCell(6, 2);
+        puzzle.addPlayCell(6, 3);
+        puzzle.addPlayCell(6, 4);
+        puzzle.addPlayCell(6, 6);
+        puzzle.addPlayCell(6, 7);
+        // seventh row
+        puzzle.addPlayCell(7, 1);
+        puzzle.addPlayCell(7, 2);
+        puzzle.addPlayCell(7, 3);
+        puzzle.addPlayCell(7, 6);
+        puzzle.addPlayCell(7, 7);
+
         game.loadPuzzle(puzzle);
     }
 }

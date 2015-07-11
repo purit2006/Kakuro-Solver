@@ -178,7 +178,7 @@ public class KakuroGUI extends JFrame {
         for(int i = 0 ; i < game.getWidth() ; ++i)
             for(int j = 0 ; j < game.getHeight() ; ++j) {
                 // Create a black image for "null" cells
-                if(game.getCellType(i, j) == null) {
+                if(game.isBlankCell(i, j)) {
                     // Create a new cell
                     JLabel temp = new JLabel(new ImageIcon(
                         IMAGE_PATH + "void" + IMAGE_EXTENSION));
@@ -214,7 +214,7 @@ public class KakuroGUI extends JFrame {
                         public void actionPerformed(ActionEvent evt) {
                             int value = table.getCell(x, y).getDownValue();
                             JButton temp = (JButton)(playMap[x][y]);
-                            
+
                             enableInputs();
                             
                             try {

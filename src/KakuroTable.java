@@ -18,15 +18,17 @@ import java.io.Serializable;
 public class KakuroTable implements Serializable {
     /*******************
      * 1. Data Members *
-     ******************/
+     *******************/
     // Object data
+    private static final int MAX_VALUE = 9;
+    private static final int MIN_VALUE = 1;
     private final int WIDTH;
     private final int HEIGHT;
     private KakuroCell[][] table;
 
     /*******************
      * 2. Constructors *
-     ******************/
+     *******************/
     /**
      * Creates a Kakuro table with a specified <code>width</code> and <code>height</code>.
      * @param width
@@ -53,7 +55,7 @@ public class KakuroTable implements Serializable {
      */
     public boolean addPuzzleCell(int x, int y, Integer downNum, Integer rightNum) {
         // Check cell boundaries
-        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT))
+        if(!isInBound(x, y))
             return false;
 
         // Generate a cell ID
@@ -80,16 +82,17 @@ public class KakuroTable implements Serializable {
      * @return <code>true</code>, if the cell has been successfully added
      */
     public boolean addLockCell(int x, int y, int num) {
-        // Check cell boundaries
-        if(((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT)) &&
-           num < 1 && num > 9)
+        // Check nearest puzzle cells for ID
+        String dID = findDownID(x, y), rID = findRightID(x, y);
+        // Check cell boundaries and nearest puzzle cells
+        if(!isInBound(x, y) ||
+           !inputInBound(num) ||
+           dID == null ||
+           rID == null)
             return false;
-        
-        // Generate a cell ID
-        String ID = Integer.toString(x) + Integer.toString(y);
-        
+
         // Create a lock cell
-        table[x][y] = new KakuroCell("D" + ID, "R" + ID, KakuroCell.LOCK);
+        table[x][y] = new KakuroCell(rID, dID, KakuroCell.LOCK);
         // Initialize cell with values
         table[x][y].setDownValue(num);
         table[x][y].fixCell();
@@ -105,15 +108,15 @@ public class KakuroTable implements Serializable {
      * @return <code>true</code>, if the cell has been successfully added
      */
     public boolean addPlayCell(int x, int y) {
+        // Check nearest puzzle cells for ID
+        String dID = findDownID(x, y), rID = findRightID(x, y);
+        
         // Check cell boundaries
-        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT))
+        if(!isInBound(x, y) || dID == null || rID == null)
             return false;
-
-        // Generate a cell ID
-        String ID = Integer.toString(x) + Integer.toString(y);
         
         // Create a play cell
-        table[x][y] = new KakuroCell("D" + ID, "R" + ID, KakuroCell.PLAY);
+        table[x][y] = new KakuroCell(dID, rID, KakuroCell.PLAY);
         return true;
     }
     
@@ -125,10 +128,10 @@ public class KakuroTable implements Serializable {
      */
     public KakuroCell removeCell(int x, int y) {
         // Check Boundaries
-        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT))
+        if(!isInBound(x, y))
             return null;
         else {
-            KakuroCell results = table[x][y];
+            KakuroCell results = getCell(x, y);
             table[x][y] = null;
             return results;
         }
@@ -143,11 +146,9 @@ public class KakuroTable implements Serializable {
      */
     public boolean fillCell(int x, int y, int value) {
         // Check Boundaries and values
-        if((x < 0 || x >= WIDTH) ||
-           (y < 0 || y >= HEIGHT) ||
+        if(!isInBound(x, y) ||
            table[x][y] == null ||
-           value < 1 ||
-           value > 9 ||
+           !inputInBound(value) ||
            !table[x][y].isPlayCell())
             return false;
         // Fill the cell with a given value
@@ -163,26 +164,44 @@ public class KakuroTable implements Serializable {
      */
     public Integer clearCell(int x, int y) {
         // Check Boundaries
-        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT) ||
-           table[x][y] == null || !table[x][y].isPlayCell())
+        if(!isInBound(x, y) || table[x][y] == null || !table[x][y].isPlayCell())
             return null;
         // Remove the value from the cell
         return table[x][y].clearDownValue();
     }
     
     /**
-     * Fetches the copy of the <code>KakuroCell</code> object at a given spot 
-     * on a table.
+     * Performs a deep the copy of the <code>KakuroCell</code> object at a 
+     * given spot on a table.
      * @param x Table's "X" position
      * @param y Table's "Y" position
-     * @return a <code>KakuroCell</code>
+     * @return a copy of <code>KakuroCell</code> at a given table slot
      */
     public KakuroCell getCell(int x, int y) {
         // Check Boundaries
-        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT))
+        if(!isInBound(x, y) || table[x][y] == null)
             return null;
         
-        return table[x][y];
+        // Perform a deep copy of the cell
+        KakuroCell results;
+        int cellType;
+        
+        if(table[x][y].isLockCell())
+            cellType = KakuroCell.LOCK;
+        else if(table[x][y].isPlayCell())
+            cellType = KakuroCell.PLAY;
+        else
+            cellType = KakuroCell.PUZZLE;
+        
+        results = new KakuroCell(table[x][y].getDownID(),
+                                 table[x][y].getRightID(),
+                                 cellType);
+        results.setDownValue(table[x][y].getDownValue());
+        results.setRightValue(table[x][y].getRightValue());
+        if(table[x][y].isFixedCell())
+            results.fixCell();
+        
+        return results;
     }
     
     /**
@@ -193,9 +212,35 @@ public class KakuroTable implements Serializable {
      */
     public String getCellType(int x, int y) {
         // Check Boundaries
-        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT) || table[x][y] == null)
+        if(!isInBound(x, y) || table[x][y] == null)
             return null;
         return table[x][y].getCellType();
+    }
+    
+    /**
+     * Tells whether the cell at a given position in this table is a fixed cell. 
+     * Fixed cells does not allow modifying values.
+     * @param x Table's "X" position
+     * @param y Table's "Y" position
+     * @return <code>true</code>, if the cell is a fixed cell
+     */
+    public boolean isFixedCell(int x, int y) {
+        if(!isInBound(x, y) || table[x][y] == null)
+            return false;
+        return table[x][y].isFixedCell();
+    }
+    
+    /**
+     * Tells whether the cell at a given position in this table is blank. 
+     * Blank cells contains no <code>KakuroCell</code>, but null value.
+     * @param x Table's "X" position
+     * @param y Table's "Y" position
+     * @return <code>true</code>, if the cell is a fixed cell
+     */
+    public boolean isBlankCell(int x, int y) {
+        if(!isInBound(x, y))
+            return false;
+        return table[x][y] == null;
     }
     
     /**
@@ -206,7 +251,7 @@ public class KakuroTable implements Serializable {
      * @return <code>true</code>, if the cell is a <code>LOCK</code> type
      */
     public boolean isLockCell(int x, int y) {
-        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT) || table[x][y] == null)
+        if(!isInBound(x, y) || table[x][y] == null)
             return false;
         return table[x][y].isLockCell();
     }
@@ -219,7 +264,7 @@ public class KakuroTable implements Serializable {
      * @return <code>true</code>, if the cell is a <code>PLAY</code> type
      */
     public boolean isPlayCell(int x, int y) {
-        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT) || table[x][y] == null)
+        if(!isInBound(x, y) || table[x][y] == null)
             return false;
         return table[x][y].isPlayCell();
     }
@@ -232,7 +277,7 @@ public class KakuroTable implements Serializable {
      * @return <code>true</code>, if the cell is a <code>PUZZLE</code> type
      */
     public boolean isPuzzleCell(int x, int y) {
-        if((x < 0 || x >= WIDTH) || (y < 0 || y >= HEIGHT) || table[x][y] == null)
+        if(!isInBound(x, y) || table[x][y] == null)
             return false;
         return table[x][y].isPuzzleCell();
     }
@@ -273,5 +318,67 @@ public class KakuroTable implements Serializable {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    /*************************
+     * 5. Private Operations *
+     *************************/
+    /**
+     * Determines whether given positions exists on this <code>KakuroTable</code>.
+     * @param x Table's "X" position
+     * @param y Table's "Y" position
+     * @return <code>true</code>, if the given position is in a table range
+     */
+    private boolean isInBound(int x, int y) {
+        return (x >= 0 && x < WIDTH) && (y >= 0 && y < HEIGHT);
+    }
+    
+    /**
+     * Determines whether given input is in range specified by this <code>KakuroTable</code>.
+     * @param value A value to be examined
+     * @return <code>true</code>, if the given <code>value</code> is in a table range
+     */
+    private boolean inputInBound(int value) {
+        return value >= MIN_VALUE && value <= MAX_VALUE;
+    }
+    
+    /**
+     * Finds an ID of the <code>KakuroCell</code> with a <code>PUZZLE</code> 
+     * type to the nearest upper direction.
+     * @param x Table's "X" position
+     * @param y Table's "Y" position
+     * @return A <code>String</code> of a nearest puzzle cell ID to the up direction
+     */
+    private String findDownID(int x, int y) {
+        // Check boundaries
+        if(!isInBound(x, y))
+            return null;
+        
+        // Find a related puzzle cell to this cell
+        for(int i = y; i >= 0 ; --i)
+            if(table[x][i] != null && table[x][i].isPuzzleCell())
+                return "D" + Integer.toString(x) + Integer.toString(i);
+                
+        return null;
+    }
+    
+    /**
+     * Finds an ID of the <code>KakuroCell</code> with a <code>PUZZLE</code> 
+     * type to the nearest puzzle cell on the left.
+     * @param x Table's "X" position
+     * @param y Table's "Y" position
+     * @return A <code>String</code> of a nearest puzzle cell ID to the left
+     */
+    private String findRightID(int x, int y) {
+        // Check boundaries
+        if(!isInBound(x, y))
+            return null;
+        
+        // Find a related puzzle cell to this cell
+        for(int i = x; i >= 0 ; --i)
+            if(table[i][y] != null && table[i][y].isPuzzleCell())
+                return "R" + Integer.toString(i) + Integer.toString(y);
+                
+        return null;
     }
 }

@@ -86,7 +86,8 @@ public class KakuroCell implements Comparable<KakuroCell>, Serializable {
      * @param value A number to be filled into the cell
      */
     public void setDownValue(int value) {
-        downValue = value;
+        if(!isFixedCell())
+            downValue = value;
     }
     
     /**
@@ -96,7 +97,8 @@ public class KakuroCell implements Comparable<KakuroCell>, Serializable {
      * @param value A number to be filled into the cell
      */
     public void setRightValue(int value) {
-        rightValue = value;
+        if(!isFixedCell())
+            rightValue = value;
     }
     
     /**
@@ -104,9 +106,12 @@ public class KakuroCell implements Comparable<KakuroCell>, Serializable {
      * @return <code>null</code>, if the cell does not contain a value
      */
     public int clearDownValue() {
-        int results = downValue;
-        downValue = 0;
-        return results;
+        if(!isFixedCell()) {
+            int results = downValue;
+            downValue = 0;
+            return results;
+        }
+        return 0;
     }
     
     /**
@@ -114,9 +119,12 @@ public class KakuroCell implements Comparable<KakuroCell>, Serializable {
      * @return <code>null</code>, if the cell does not contain a value
      */
     public int clearRightValue() {
-        int results = rightValue;
-        rightValue = 0;
-        return results;
+        if(!isFixedCell()) {
+            int results = rightValue;
+            rightValue = 0;
+            return results;
+        }
+        return 0;
     }
     
     /**************************************
