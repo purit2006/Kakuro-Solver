@@ -1,3 +1,6 @@
+import java.util.Scanner;
+
+
 /**
  * Javadoc first introduction paragraph here!
  * 
@@ -101,7 +104,31 @@ public class Main {
         puzzle.addPlayCell(7, 3);
         puzzle.addPlayCell(7, 6);
         puzzle.addPlayCell(7, 7);
-
+        
+        KUtility.init(puzzle);
+        int[] x = KUtility.getPX();
+        int[] y = KUtility.getPY();
+        
+     // Create an initial population
+        KPopulation myPop = new KPopulation(50,true);
+        
+     // Evolve our population until we reach an optimum solution
+        int generationCount = 0;
+        Scanner sc = new Scanner(System.in);
+        String c;
+        while (myPop.getFittest().getFitness() > 0.0) {
+            generationCount++;
+            System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness());
+//            KUtility.printRawTable(myPop.getFittest().getTable());
+//            System.out.print("Next: ");c = sc.nextLine();
+            myPop = Algorithm.evolvePopulation(myPop);
+            
+        }
+        System.out.println("Solution found!");
+        System.out.println("Generation: " + generationCount);
+        KUtility.printRawTable(myPop.getFittest().getTable());
+        System.out.println(myPop.getFittest().getFitness());
+        //System.out.println(indv.getFitness());
         game.loadPuzzle(puzzle);
     }
 }
