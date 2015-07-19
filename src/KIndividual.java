@@ -41,22 +41,22 @@ public class KIndividual {
 			if(table[i][j] == table[r][c]) return true;
 			--i;
 		}
-//		i = r-1;j = c;
-//		while(i < size() && (table[i][j] != Double.NaN || table[i][j] >= 0)){
-//			if(table[i][j] == table[r][c]) return true;
-//			++i;
-//		}
+		i = r+1;j = c;
+		while(i < size() && (table[i][j] != Double.NaN && table[i][j] >= 0)){
+			if(table[i][j] == table[r][c]) return true;
+			++i;
+		}
 		
 		i = r; j = c-1;
 		while(j >= 0 && (table[i][j] != Double.NaN && table[i][j] >= 0)){
 			if(table[i][j] == table[r][c]) return true;
 			--j;
 		}
-//		i = r; j = c-1;
-//		while(j < size() && (table[i][j] != Double.NaN || table[i][j] >= 0)){
-//			if(table[i][j] == table[r][c]) return true;
-//			++j;
-//		}
+		i = r; j = c+1;
+		while(j < size() && (table[i][j] != Double.NaN && table[i][j] >= 0)){
+			if(table[i][j] == table[r][c]) return true;
+			++j;
+		}
 		return false;
 	}
 	
@@ -89,7 +89,7 @@ public class KIndividual {
 	public void setCell(int row,int col,double val){
     	double tmp = table[row][col];
     	table[row][col] = val;
-    	if(isExcessiveVal(row,col) && isDuplicated(row,col)) table[row][col] = tmp;
+    	if(isExcessiveVal(row,col) || isDuplicated(row,col)) table[row][col] = tmp;
     }
 	
 	// replace all the value in the cells that related to the puzzle cell row,col
@@ -126,8 +126,8 @@ public class KIndividual {
     		}
     		
     	}
-    	
-        fitness = 0;
+    	fitness = -1;
+        
     }
     
     public double getBestTrait(){
@@ -158,6 +158,24 @@ public class KIndividual {
     	return fullIdx;
     }
     
+    // There is a problem with the crossover which results in Duplicate value.
+    // This is not a good solution that just re-adjust all the value in the play cells table.
+    public void adjust(){
+    	Random rand = new Random();
+    	for(int r = 0; r < size(); ++r){
+    		for(int c = 0; c < size(); ++c){
+    			if(table[r][c] == Double.NaN || table[r][c] < 0){
+    				continue;
+    			}
+    			while(isDuplicated(r,c)){
+    				int n = rand.nextInt(10-1)+1;
+    				if(n % 2 == 0 && table[r][c] < 9) table[r][c] += 1;
+    				else if(n % 2 == 1 && table[r][c] > 1) table[r][c] -= 1;
+    				else table[r][c] = n;
+    			}
+    		}
+    	}
+    }
 	public double getFitness(){
 		if(fitness == -1){
 			

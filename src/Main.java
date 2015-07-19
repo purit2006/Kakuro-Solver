@@ -21,6 +21,9 @@ public class Main {
      * Main function of the program.
      * @param args Command-Line Arguments
      */
+    
+    
+    
     public static void main(String[] args) {
         KakuroGUI game = new KakuroGUI();
         
@@ -119,8 +122,8 @@ public class Main {
         while (myPop.getFittest().getFitness() > 0.0) {
             generationCount++;
             System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness());
-//            KUtility.printRawTable(myPop.getFittest().getTable());
-//            System.out.print("Next: ");c = sc.nextLine();
+            
+
             myPop = Algorithm.evolvePopulation(myPop);
             
         }

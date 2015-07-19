@@ -173,7 +173,30 @@ public class KUtility {
 	}
 	
 	
-	
+	public static boolean isDuplicated(int r,int c,double[][] table){
+		int i = r-1,j = c;
+		while(i >= 0 && (table[i][j] != Double.NaN && table[i][j] >= 0)){
+			if(table[i][j] == table[r][c]) return true;
+			--i;
+		}
+		i = r+1;j = c;
+		while(i < table.length && (table[i][j] != Double.NaN && table[i][j] >= 0)){
+			if(table[i][j] == table[r][c]) return true;
+			++i;
+		}
+		
+		i = r; j = c-1;
+		while(j >= 0 && (table[i][j] != Double.NaN && table[i][j] >= 0)){
+			if(table[i][j] == table[r][c]) return true;
+			--j;
+		}
+		i = r; j = c+1;
+		while(j < table.length && (table[i][j] != Double.NaN && table[i][j] >= 0)){
+			if(table[i][j] == table[r][c]) return true;
+			++j;
+		}
+		return false;
+	}
 
 
 }

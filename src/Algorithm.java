@@ -31,12 +31,15 @@ public class Algorithm {
             KIndividual indiv1 = tournamentSelection(pop);
             KIndividual indiv2 = tournamentSelection(pop);
             KIndividual newIndiv = crossoverV2(indiv1, indiv2);
+            newIndiv.adjust();
+
             newPopulation.saveIndividual(i, newIndiv);
         }
 
         // Mutate population
 //        for (int i = elitismOffset; i < newPopulation.size(); i++) {
 //            mutate(newPopulation.getIndividual(i));
+//        	
 //        }
 
         return newPopulation;
@@ -101,10 +104,7 @@ public class Algorithm {
         double idiv1BestTraits = indiv1.getBestTrait();
         
         double idiv2BestTraits = indiv2.getBestTrait();
-        System.out.println(idiv1BestTraits);
-        System.out.println(idiv2BestTraits);
-        System.out.println();
-        
+   
         String[] arr=String.valueOf(idiv1BestTraits).split("\\.");
         newSol.setCrossVal(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), indiv1);
         
@@ -112,8 +112,7 @@ public class Algorithm {
         newSol.setCrossVal(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), indiv2);
         
     	newSol.generateSolution();
-    	//KUtility.printRawTable(newSol.getTable());
-        return newSol;
+    	return newSol;
     }
    
     
