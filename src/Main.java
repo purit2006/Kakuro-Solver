@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Main {
     final private static int WIDTH = 8;
     final private static int HEIGHT = 8;
+    private static KakuroTable puzzle;
     /*****************
      * Main Function *
      ****************/
@@ -22,17 +23,13 @@ public class Main {
      * @param args Command-Line Arguments
      */
     
-    
-    
-    public static void main(String[] args) {
-        KakuroGUI game = new KakuroGUI();
-        
-        KakuroTable puzzle = new KakuroTable(WIDTH, HEIGHT);
-        
-        /****************
+    public static void puzzleHard(){
+    	puzzle = new KakuroTable(WIDTH, HEIGHT);
+    	/****************
          * Puzzle Cells *
          ****************/
-        // first row
+        
+    	// first row
         puzzle.addPuzzleCell(0, 1, 23, 0);
         puzzle.addPuzzleCell(0, 2, 30, 0);  
         puzzle.addPuzzleCell(0, 5, 27, 0);
@@ -107,31 +104,161 @@ public class Main {
         puzzle.addPlayCell(7, 3);
         puzzle.addPlayCell(7, 6);
         puzzle.addPlayCell(7, 7);
+    }
+    public static void puzzleMedium(){
+    	
+    	puzzle = new KakuroTable(WIDTH, HEIGHT);
+    	/****************
+         * Puzzle Cells *
+         ****************/
         
+    	// 1st row
+        puzzle.addPuzzleCell(0, 3, 9, 0);
+        puzzle.addPuzzleCell(0, 4, 9, 0);
+        // 2nd row
+        puzzle.addPuzzleCell(1, 2, 0, 11);
+        puzzle.addPuzzleCell(1, 5, 9, 0);
+        puzzle.addPuzzleCell(1, 6, 22, 0);
+        // 3rd row
+        puzzle.addPuzzleCell(2, 2, 15, 12);
+        puzzle.addPuzzleCell(2, 7, 7, 0);
+        // fourth row
+        puzzle.addPuzzleCell(3, 1, 17, 8);
+        puzzle.addPuzzleCell(3, 4, 0, 9);
+        // fifth row
+        puzzle.addPuzzleCell(4, 0, 0, 10);
+        puzzle.addPuzzleCell(4, 3, 8, 0);
+        puzzle.addPuzzleCell(4, 5, 21, 15);
+        // sixth row
+        puzzle.addPuzzleCell(5, 0, 0, 12);
+        puzzle.addPuzzleCell(5, 4, 11, 12);
+        // seventh row
+        puzzle.addPuzzleCell(6, 1, 0, 29);
+        // eight row
+        puzzle.addPuzzleCell(7, 3, 0, 10);
+        
+        /**************
+         * Play Cells *
+         **************/
+        // 2nd row
+        puzzle.addPlayCell(1, 3);
+        puzzle.addPlayCell(1, 4);
+        // 3rd row
+        puzzle.addPlayCell(2, 3);
+        puzzle.addPlayCell(2, 4);
+        puzzle.addPlayCell(2, 5);
+        puzzle.addPlayCell(2, 6);
+        //4th row
+        puzzle.addPlayCell(3, 2);
+        puzzle.addPlayCell(3, 3);
+        puzzle.addPlayCell(3, 5);
+        puzzle.addPlayCell(3, 6);
+        puzzle.addPlayCell(3, 7);
+        // 5th row
+        puzzle.addPlayCell(4, 1);
+        puzzle.addPlayCell(4, 2);
+        puzzle.addPlayCell(4, 6);
+        puzzle.addPlayCell(4, 7);
+        // 6th
+        puzzle.addPlayCell(5, 1);
+        puzzle.addPlayCell(5, 2);
+        puzzle.addPlayCell(5, 3);
+        puzzle.addPlayCell(5, 5);
+        puzzle.addPlayCell(5, 6);
+        // 7th 
+        puzzle.addPlayCell(6, 2);
+        puzzle.addPlayCell(6, 3);
+        puzzle.addPlayCell(6, 4);
+        puzzle.addPlayCell(6, 5);
+        // 8th
+        puzzle.addPlayCell(7, 4);
+        puzzle.addPlayCell(7, 5);
+        
+        
+        
+    }
+    
+    public static void puzzleEasy(){
+    	puzzle = new KakuroTable(5, 5);
+    	/****************
+         * Puzzle Cells *
+         ****************/
+        
+    	//1st row
+    	puzzle.addPuzzleCell(0, 3, 6, 0);
+    	puzzle.addPuzzleCell(0, 4, 3, 0);
+    	// 2nd row
+    	puzzle.addPuzzleCell(1, 1, 4, 0);
+    	puzzle.addPuzzleCell(1, 2, 3, 3);
+    	// 3rd row
+    	puzzle.addPuzzleCell(2, 0, 0, 10);
+    	// 4th row
+    	puzzle.addPuzzleCell(3, 0, 0, 3);
+    	
+    	 /**************
+         * Play Cells *
+         **************/
+    	// 2nd row
+    	puzzle.addPlayCell(1, 3);
+    	puzzle.addPlayCell(1, 4);
+    	// 3rd
+    	puzzle.addPlayCell(2, 1);
+    	puzzle.addPlayCell(2, 2);
+    	puzzle.addPlayCell(2, 3);
+    	puzzle.addPlayCell(2, 4);
+    	// 4th
+    	puzzle.addPlayCell(3, 1);
+    	puzzle.addPlayCell(3, 2);
+    	
+    }
+    public static void main(String[] args) {
+        KakuroGUI game = new KakuroGUI();
+        
+        
+        
+        puzzleHard();
+        game.loadPuzzle(puzzle);
         KUtility.init(puzzle);
-        int[] x = KUtility.getPX();
-        int[] y = KUtility.getPY();
         
      // Create an initial population
-        KPopulation myPop = new KPopulation(50,true);
-        
+        KPopulation myPop = new KPopulation(1000,true);
+        double curFittestVal = myPop.getFittest().getFitness();
+        double prevFittestVal;
      // Evolve our population until we reach an optimum solution
         int generationCount = 0;
-        Scanner sc = new Scanner(System.in);
-        String c;
-        while (myPop.getFittest().getFitness() > 0.0) {
+        int newFittestGeneration = 0;
+        while (curFittestVal > FitnessCalc.getMaxFitness()) {
             generationCount++;
-            System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness());
-            
-
+            //if(generationCount % 100 == 0)
+            	System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness());
+            // record the current fittest value of the generation before evolving
+            prevFittestVal = curFittestVal;
+            // evolve : Crossover and Mutate individuals
             myPop = Algorithm.evolvePopulation(myPop);
+            
+            // update the current fittest value
+            curFittestVal = myPop.getFittest().getFitness();
+            
+            // if the new fitness is found
+            if(curFittestVal != prevFittestVal){
+            	newFittestGeneration = generationCount;
+            }
+            
+            // if the value of the fitness not changing over some generation
+            else if((generationCount - newFittestGeneration) > 2000 && curFittestVal == prevFittestVal){
+            	System.out.println("BEFORE RESET ELITE: " + myPop.getFittest().getFitness());
+            	myPop.resetElite();
+            	System.out.println("AFTER RESET ELITE: "+ myPop.getFittest().getFitness());
+            	
+            	curFittestVal = myPop.getFittest().getFitness();
+            	newFittestGeneration = generationCount;
+            }
             
         }
         System.out.println("Solution found!");
         System.out.println("Generation: " + generationCount);
         KUtility.printRawTable(myPop.getFittest().getTable());
         System.out.println(myPop.getFittest().getFitness());
-        //System.out.println(indv.getFitness());
-        game.loadPuzzle(puzzle);
+        
     }
 }

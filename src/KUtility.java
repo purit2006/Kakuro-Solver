@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 
+/**
+ * KUtility is a class that contains many helper function
+ * to support many other operations during the coputation
+ * @author purit
+ *
+ */
 
 public class KUtility {
 	
@@ -7,6 +13,9 @@ public class KUtility {
 	private static int[] pX;
 	private static int[] pY;
 	
+	/**
+	 * Extract the index of the puzzöe cells into pX an pY
+	 */
 	private static void initPuzzleXYs(){
 		double[][] atable = CellsToDoubles(table);
 		ArrayList<Integer> coords = new ArrayList<Integer>();
@@ -29,16 +38,38 @@ public class KUtility {
 		}
 	}
 	
+	
+	/**
+	 * initialize the table
+	 * @param atable
+	 */
 	public static void init(KakuroTable atable){
 		table = atable;
 		initPuzzleXYs();
 	}
 	
+	/**
+	 * get Row indexes of the puzzle cells
+	 * @return
+	 */
 	public static int[] getPX(){return pX;}
+	
+	/**
+	 * get Column indexes of the puzzle cells
+	 * @return
+	 */
 	public static int[] getPY(){return pY;}
 	
+	/**
+	 * get an empty table with only the puzzle cells present
+	 * @return
+	 */
 	public static KakuroTable getTable(){return table;}
 	
+	/**
+	 * print the table which has the data type double[][]
+	 * @param atable
+	 */
 	public static void printRawTable(double[][] atable){
 		for(int i = 0; i < atable.length; ++i){
 			for(int j = 0; j < atable[i].length; ++j){
@@ -57,14 +88,22 @@ public class KUtility {
 		
 	}
 	
-	// change from number format "A" to "0.A"
+	/**
+	 * change from number format "A" to "0.A"
+	 * @param val the value to be formatted
+	 * @return
+	 */
 	public static double rightValueFormat(double val){
 		if(val > 9) val /= 100;
 		else val /= 10;
 		return val;
 	}
 	
-	// create the value in the new table from right and down value in the cell 
+	/**
+	 * create the value in the new table from right and down value in the cell 
+	 * @param cell
+	 * @return
+	 */
 	public static double convertPuzzleCellValue(KakuroCell cell){
 		double val = 0.0;
 		val += cell.getDownValue();
@@ -72,11 +111,19 @@ public class KUtility {
 			val += rightValueFormat(cell.getRightValue());
 		}
 		val *= -1;
-		//System.out.println("Converting right value : " + val);
 		
 		return val;
 	}
 	
+	/**
+	 * Compute the difference between the sum of the corresponding 
+	 * (Down)play cells of the puzzle cells in r row and c column and the puzzle cell value
+	 * @param table
+	 * @param row
+	 * @param col
+	 * @param num
+	 * @return
+	 */
 	public static int sumDiffDown(double[][] table,int row,int col,double num){
 		int r = row + 1,c = col;
 		String[] arr=String.valueOf(num).split("\\.");
@@ -90,6 +137,16 @@ public class KUtility {
 		}
 		return (int)Math.abs(num - sum);
 	}
+	
+	/**
+	 * Compute the difference between the sum of the corresponding 
+	 * (Right)play cells of the puzzle cells in r row and c column and the puzzle cell value
+	 * @param table
+	 * @param row
+	 * @param col
+	 * @param num
+	 * @return
+	 */
 	public static int sumDiffRight(double[][] table,int row,int col,double num){
 		int r = row,c = col + 1;
 		
@@ -103,6 +160,13 @@ public class KUtility {
 		return (int)Math.abs(num - sum);
 	}
 	
+	
+	/**
+	 * Convert the value of the KakuroTable and change the format into double[][] 
+	 * instead for easy in performing the algorithm
+	 * @param atable
+	 * @return
+	 */
 	public static double[][] CellsToDoubles(KakuroTable atable){
 		double[][] newTable = new double[atable.getWidth()][atable.getHeight()];
 		for(int r = 0; r < atable.getWidth(); ++r){
@@ -121,6 +185,12 @@ public class KUtility {
 		return newTable;
 	}
 	
+	
+	/**
+	 * is the puzzle cell "num" has only the down value or not
+	 * @param num
+	 * @return
+	 */
 	public static boolean isDownOnly(double num){
 		String n = Double.toString(num);
 		boolean PointFound = false; 
@@ -132,6 +202,11 @@ public class KUtility {
 		return true;
 	}
 	
+	/**
+	 * is the puzzle cell "num" has only the right value or not
+	 * @param num
+	 * @return
+	 */
 	public static boolean isRightOnly(double num){
 		
 		String n = Double.toString(num);
@@ -145,6 +220,11 @@ public class KUtility {
 
 	}
 	
+	/**
+	 * is the puzzle cell "num" contains both right and down values or not
+	 * @param num
+	 * @return
+	 */
 	public static boolean isDownRight(double num){
 		String n = Double.toString(num);
 		boolean numFound = false;
@@ -173,30 +253,7 @@ public class KUtility {
 	}
 	
 	
-	public static boolean isDuplicated(int r,int c,double[][] table){
-		int i = r-1,j = c;
-		while(i >= 0 && (table[i][j] != Double.NaN && table[i][j] >= 0)){
-			if(table[i][j] == table[r][c]) return true;
-			--i;
-		}
-		i = r+1;j = c;
-		while(i < table.length && (table[i][j] != Double.NaN && table[i][j] >= 0)){
-			if(table[i][j] == table[r][c]) return true;
-			++i;
-		}
-		
-		i = r; j = c-1;
-		while(j >= 0 && (table[i][j] != Double.NaN && table[i][j] >= 0)){
-			if(table[i][j] == table[r][c]) return true;
-			--j;
-		}
-		i = r; j = c+1;
-		while(j < table.length && (table[i][j] != Double.NaN && table[i][j] >= 0)){
-			if(table[i][j] == table[r][c]) return true;
-			++j;
-		}
-		return false;
-	}
+	
 
 
 }

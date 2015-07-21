@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -5,11 +6,17 @@ import java.util.Random;
 
 
 public class Algorithm {
-	private static final int tournamentSize = 5;
+	private static final int tournamentSize = 10;
 	private static final double uniformRate = 0.5;
-	private static final double mutationRate = 0.015;
+	private static final double mutationRate = 0.35;
 	private static final boolean elitism = true;
-	 // Evolve a population
+	
+	
+	/**
+	 * Perform evolution of the population
+	 * @param pop
+	 * @return
+	 */
     public static KPopulation evolvePopulation(KPopulation pop) {
         KPopulation newPopulation = new KPopulation(pop.size(), false);
 
@@ -30,39 +37,69 @@ public class Algorithm {
         for (int i = elitismOffset; i < pop.size(); i++) {
             KIndividual indiv1 = tournamentSelection(pop);
             KIndividual indiv2 = tournamentSelection(pop);
-            KIndividual newIndiv = crossoverV2(indiv1, indiv2);
-            newIndiv.adjust();
+            KIndividual newIndiv = crossover(indiv1, indiv2);
+            //newIndiv.adjust();
 
             newPopulation.saveIndividual(i, newIndiv);
         }
 
         // Mutate population
-//        for (int i = elitismOffset; i < newPopulation.size(); i++) {
-//            mutate(newPopulation.getIndividual(i));
-//        	
-//        }
+        for (int i = elitismOffset; i < newPopulation.size(); i++) {
+            mutate(newPopulation.getIndividual(i));
+        	
+        }
 
         return newPopulation;
     }
-    // Mutate an individual
+    
+    /**
+     * Mutate individual
+     * @param indiv
+     */
     private static void mutate(KIndividual indiv) {
+    	double currentFitness = indiv.getFitness();
     	Random rand = new Random();
         // Loop through every play cell in the Individual
         for (int r = 0; r < indiv.size(); r++) {
         	for(int c = 0; c < indiv.size(); ++c){
+        		// skip the puzzle cells or non-value cell
         		if (indiv.getCell(r, c) < 0 || Double.isNaN(indiv.getCell(r, c))) 
         			continue;
+        		
+        		// according to mutationRate, perform the mutation.
         		else if (Math.random() <= mutationRate) {
-	                // Create random num
-	                //double num = rand.nextInt(10-1)+1;
-	                indiv.setCell(r,c, indiv.getCell(r, c) + 1);
+        			if(Math.random() <= 0.5){
+        				while(indiv.setCell(r,c, indiv.getCell(r, c) + 1)){
+        					if(indiv.getFitness() < currentFitness) currentFitness = indiv.getFitness();
+        					else break;
+        				}
+        			}
+        			else{
+        				
+        				while(indiv.setCell(r,c, (indiv.getCell(r, c) - 1))){
+        					if(indiv.getFitness() < currentFitness) currentFitness = indiv.getFitness();
+        					else break;
+        				}
+        			}
+	                
 	            }
         	}
         }
     }
     
     
- // Crossover individuals
+    /**
+     * #######################################################
+     * CROSSOVER METHODS
+     * #######################################################
+     */
+    
+    /**
+     * crossover by randomly select the set of puzzle and it's corresponding play cell values.
+     * @param indiv1
+     * @param indiv2
+     * @return
+     */
     private static KIndividual crossover(KIndividual indiv1, KIndividual indiv2) {
         KIndividual newSol = new KIndividual(KUtility.getTable());
         int[] x = KUtility.getPX();
@@ -80,7 +117,12 @@ public class Algorithm {
         return newSol;
     }
     
-    // randomly select the play cell from 2 of the individuals
+    /**
+     * this version randomly select the play cell from 2 of the individuals.
+     * @param indiv1
+     * @param indiv2
+     * @return
+     */
     private static KIndividual crossoverV2(KIndividual indiv1, KIndividual indiv2){
     	KIndividual newSol = new KIndividual(KUtility.getTable());
         for(int r = 0; r < indiv1.size(); ++r){
@@ -98,7 +140,14 @@ public class Algorithm {
         return newSol;
     }
     
-    
+    /**
+     * this version using method getBestTrait() 
+     * which is a puzzle cell which has the most minimum difference between 
+     * it's puzzle value and the sum of it's corresponding play cells value
+     * @param indiv1
+     * @param indiv2
+     * @return
+     */
     private static KIndividual crossoverV3(KIndividual indiv1, KIndividual indiv2){
     	KIndividual newSol = new KIndividual(KUtility.getTable());
         double idiv1BestTraits = indiv1.getBestTrait();
@@ -116,7 +165,13 @@ public class Algorithm {
     }
    
     
-    // Select individuals for crossover
+    
+    
+    /**
+     * Select individuals for crossover
+     * @param pop
+     * @return
+     */
     private static KIndividual tournamentSelection(KPopulation pop) {
         // Create a tournament population
         KPopulation tournament = new KPopulation(tournamentSize, false);
@@ -129,4 +184,6 @@ public class Algorithm {
         KIndividual fittest = tournament.getFittest();
         return fittest;
     }
+    
+    
 }
