@@ -5,14 +5,15 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -36,7 +37,7 @@ public class KakuroGUI extends JFrame {
     // 1.1 Constants
     // 1.1.1 GUI Values
     final private static int TABLE_GAP = 1;
-    final private static String TITLE = "Kakuro Solver";
+    final public static String TITLE = "Kakuro Solver";
     // 1.1.2 Image Paths
     final private static String IMAGE_EXTENSION = ".png";
     final private static String IMAGE_PATH = "buttons/";
@@ -62,6 +63,7 @@ public class KakuroGUI extends JFrame {
     // 1.3 GUI Components
     final private JPanel puzzleRow = new JPanel();
     final private JPanel inputRow = new JPanel();
+    final private JToolBar toolbar = new JToolBar(JToolBar.VERTICAL);
     // 1.3.1 Input Buttons
     final private JButton[] inputButtons = new JButton[9];
     final private ImageIcon[] buttonsIcon = new ImageIcon[9];
@@ -85,6 +87,7 @@ public class KakuroGUI extends JFrame {
         setup();
         
         // Add GUI Components to the main window
+        add(toolbar);
         add(puzzleRow);
         add(inputRow);
         pack();
@@ -98,7 +101,44 @@ public class KakuroGUI extends JFrame {
      * 3. Set-up Methods *
      *********************/
     private void setup() {
+        createToolBar();
         createInputButtons();
+    }
+    
+    private void createToolBar() {
+        // Create buttons
+        JButton openButton = new JButton(new ImageIcon(
+                IMAGE_PATH + "open" + IMAGE_EXTENSION));
+        JButton saveButton = new JButton(new ImageIcon(
+                IMAGE_PATH + "save" + IMAGE_EXTENSION));
+        JButton newButton = new JButton(new ImageIcon(
+                IMAGE_PATH + "new" + IMAGE_EXTENSION));
+        JButton solveButton = new JButton(new ImageIcon(
+                IMAGE_PATH + "solve" + IMAGE_EXTENSION));
+        
+        // Set Buttons' Properties
+        openButton.setFocusPainted(false);
+        saveButton.setFocusPainted(false);
+        newButton.setFocusPainted(false);
+        solveButton.setFocusPainted(false);
+        
+        openButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ;
+            }
+        });
+        
+        // Set Toolbar's Properties
+        toolbar.setRollover(true);
+        toolbar.setFloatable(false);
+        
+        // Add all buttons to the toolbar
+        toolbar.add(openButton);
+        toolbar.add(saveButton);
+        toolbar.addSeparator();
+        toolbar.add(newButton);
+        toolbar.add(solveButton);
     }
     
     private void createInputButtons() {
@@ -174,6 +214,11 @@ public class KakuroGUI extends JFrame {
                                 TABLE_GAP);
         table = game;
         
+        // Clear out the old puzzle
+        puzzleRow.removeAll();
+        // Set Puzzle Layout to the program
+        puzzleRow.setLayout(puzzle);
+        
         // Create puzzle
         for(int i = 0 ; i < game.getWidth() ; ++i)
             for(int j = 0 ; j < game.getHeight() ; ++j) {
@@ -198,8 +243,15 @@ public class KakuroGUI extends JFrame {
                 // Create a blank white image for "PLAY" cells
                 else if(game.isPlayCell(i, j)) {
                     // Create a new JButton for a "PLAY" cell
-                    JButton temp = new JButton(new ImageIcon(
-                        IMAGE_PATH + "blank" + IMAGE_EXTENSION));
+                    JButton temp;
+                    
+                    if(game.isBlankPlayCell(i, j))
+                        temp = new JButton(new ImageIcon(
+                            IMAGE_PATH + "blank" + IMAGE_EXTENSION));
+                    else {
+                        temp = new JButton(new ImageIcon(
+                            IMAGE_PATH + "num" + Integer.toString(game.getCell(i, j).getDownValue()) + IMAGE_EXTENSION));
+                    }
                     temp.setBorder(null);
                     temp.setContentAreaFilled(false);
                     
@@ -285,8 +337,8 @@ public class KakuroGUI extends JFrame {
                 }
             }
         
-        // Set puzzle to the game
-        puzzleRow.setLayout(puzzle);
+        // Repaint the puzzle screen
+        puzzleRow.validate();
     }
     
     /**

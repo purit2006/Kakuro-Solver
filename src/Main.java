@@ -4,7 +4,7 @@ import java.util.Scanner;
 /**
  * Javadoc first introduction paragraph here!
  * 
- * @author Purit
+ * @author Purit Thong-On 1106
  * @author Marcus Vinicius Pereira Araujo 1106149
  * @author Piyapat Russamitinakornkul 1106291
  * 
@@ -22,7 +22,71 @@ public class Main {
      * Main function of the program.
      * @param args Command-Line Arguments
      */
+    public static void main(String[] args) {
+        KakuroGUI game = new KakuroGUI();
+        
+        
+        puzzleHard();
+        game.loadPuzzle(puzzle);
+        KUtility.init(puzzle);
+        
+     // Create an initial population
+        KPopulation myPop = new KPopulation(1000,true);
+        double curFittestVal = myPop.getFittest().getFitness();
+        double prevFittestVal;
+     // Evolve our population until we reach an optimum solution
+        int generationCount = 0;
+        int newFittestGeneration = 0;
+        while (curFittestVal > FitnessCalc.getMaxFitness()) {
+            generationCount++;
+            
+            System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness());
+            //if(generationCount % 10 == 0) {
+            try {
+                game.setTitle(game.TITLE + " - " + Integer.toString(generationCount));
+                for(int i = 0 ; i < puzzle.getWidth() ; ++i)
+                    for(int j = 0 ; j < puzzle.getHeight() ; ++j)
+                        if(puzzle.isPlayCell(i, j))
+                            puzzle.fillCell(i, j, (int)myPop.getFittest().getTable()[i][j]);
+                game.loadPuzzle(puzzle);
+                Thread.sleep(100);
+            }
+            catch(Exception e) {e.printStackTrace();}
+            //}
+            
+            // record the current fittest value of the generation before evolving
+            prevFittestVal = curFittestVal;
+            // evolve : Crossover and Mutate individuals
+            myPop = Algorithm.evolvePopulation(myPop);
+            
+            // update the current fittest value
+            curFittestVal = myPop.getFittest().getFitness();
+            
+            // if the new fitness is found
+            if(curFittestVal != prevFittestVal){
+            	newFittestGeneration = generationCount;
+            }
+            
+            // if the value of the fitness not changing over some generation
+            else if((generationCount - newFittestGeneration) > 100 && curFittestVal == prevFittestVal){
+            	System.out.println("BEFORE RESET ELITE: " + myPop.getFittest().getFitness());
+            	myPop.resetElite();
+            	System.out.println("AFTER RESET ELITE: "+ myPop.getFittest().getFitness());
+            	
+            	curFittestVal = myPop.getFittest().getFitness();
+            	newFittestGeneration = generationCount;
+            }
+            
+        }
+        System.out.println("Solution found!");
+        System.out.println("Generation: " + generationCount);
+        KUtility.printRawTable(myPop.getFittest().getTable());
+        System.out.println(myPop.getFittest().getFitness());
+    }
     
+    /**
+     * Contains easy data for creating a hard Kakuro game.
+     */
     public static void puzzleHard(){
     	puzzle = new KakuroTable(WIDTH, HEIGHT);
     	/****************
@@ -105,6 +169,10 @@ public class Main {
         puzzle.addPlayCell(7, 6);
         puzzle.addPlayCell(7, 7);
     }
+    
+    /**
+     * Contains easy data for creating a medium difficulty Kakuro game.
+     */
     public static void puzzleMedium(){
     	
     	puzzle = new KakuroTable(WIDTH, HEIGHT);
@@ -178,6 +246,9 @@ public class Main {
         
     }
     
+    /**
+     * Contains easy data for creating an easy Kakuro game.
+     */
     public static void puzzleEasy(){
     	puzzle = new KakuroTable(5, 5);
     	/****************
@@ -210,55 +281,5 @@ public class Main {
     	puzzle.addPlayCell(3, 1);
     	puzzle.addPlayCell(3, 2);
     	
-    }
-    public static void main(String[] args) {
-        KakuroGUI game = new KakuroGUI();
-        
-        
-        
-        puzzleHard();
-        game.loadPuzzle(puzzle);
-        KUtility.init(puzzle);
-        
-     // Create an initial population
-        KPopulation myPop = new KPopulation(1000,true);
-        double curFittestVal = myPop.getFittest().getFitness();
-        double prevFittestVal;
-     // Evolve our population until we reach an optimum solution
-        int generationCount = 0;
-        int newFittestGeneration = 0;
-        while (curFittestVal > FitnessCalc.getMaxFitness()) {
-            generationCount++;
-            //if(generationCount % 100 == 0)
-            	System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness());
-            // record the current fittest value of the generation before evolving
-            prevFittestVal = curFittestVal;
-            // evolve : Crossover and Mutate individuals
-            myPop = Algorithm.evolvePopulation(myPop);
-            
-            // update the current fittest value
-            curFittestVal = myPop.getFittest().getFitness();
-            
-            // if the new fitness is found
-            if(curFittestVal != prevFittestVal){
-            	newFittestGeneration = generationCount;
-            }
-            
-            // if the value of the fitness not changing over some generation
-            else if((generationCount - newFittestGeneration) > 2000 && curFittestVal == prevFittestVal){
-            	System.out.println("BEFORE RESET ELITE: " + myPop.getFittest().getFitness());
-            	myPop.resetElite();
-            	System.out.println("AFTER RESET ELITE: "+ myPop.getFittest().getFitness());
-            	
-            	curFittestVal = myPop.getFittest().getFitness();
-            	newFittestGeneration = generationCount;
-            }
-            
-        }
-        System.out.println("Solution found!");
-        System.out.println("Generation: " + generationCount);
-        KUtility.printRawTable(myPop.getFittest().getTable());
-        System.out.println(myPop.getFittest().getFitness());
-        
     }
 }

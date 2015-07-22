@@ -138,7 +138,8 @@ public class KakuroTable implements Serializable {
     }
     
     /**
-     * Fills a specified cell with given values. Can be null
+     * Fills a specified cell with given values. Only available if the cell is 
+     * a <code>PLAY</code> type.
      * @param x Table's "X" position
      * @param y Table's "Y" position
      * @param value A first <code>value</code> of the cell
@@ -148,8 +149,8 @@ public class KakuroTable implements Serializable {
         // Check Boundaries and values
         if(!isInBound(x, y) ||
            table[x][y] == null ||
-           !inputInBound(value) ||
-           !table[x][y].isPlayCell())
+           !table[x][y].isPlayCell() ||
+           !inputInBound(value))
             return false;
         // Fill the cell with a given value
         table[x][y].setDownValue(value);
@@ -235,12 +236,26 @@ public class KakuroTable implements Serializable {
      * Blank cells contains no <code>KakuroCell</code>, but null value.
      * @param x Table's "X" position
      * @param y Table's "Y" position
-     * @return <code>true</code>, if the cell is a fixed cell
+     * @return <code>true</code>, if the cell is a blank cell
      */
     public boolean isBlankCell(int x, int y) {
         if(!isInBound(x, y))
             return false;
         return table[x][y] == null;
+    }
+    
+    /**
+     * Tells whether the cell at a given position in this table is a <code>PLAY</code> 
+     * cell, but has no values within a cell.
+     * Blank cells contains no <code>KakuroCell</code>, but null value.
+     * @param x Table's "X" position
+     * @param y Table's "Y" position
+     * @return <code>true</code>, if the cell is a play cell with no values
+     */
+    public boolean isBlankPlayCell(int x, int y) {
+        if(!isInBound(x, y) || table[x][y] == null)
+            return false;
+        return table[x][y].isPlayCell() && (table[x][y].getDownValue() == 0);
     }
     
     /**
