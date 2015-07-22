@@ -98,7 +98,7 @@ public class KIndividual {
 				if(table[r][c] == 0.0){
 					do{
 						table[r][c] = rand.nextInt(10-1)+1;
-					}while(isDuplicated(r,c) && isExcessiveVal(r,c));
+					}while(isDuplicated(r,c) || isExcessiveVal(r,c));
 				}
 				
 			}
@@ -134,12 +134,13 @@ public class KIndividual {
 	 * @return
 	 */
 	public boolean setCell(int row,int col,double val){
+		Random rand = new Random();
     	double tmp = table[row][col];
     	if(val <= 0 || val > 9) return false;
     	table[row][col] = val;
-    	if(isExcessiveVal(row,col) || isDuplicated(row,col)) {
-    		table[row][col] = tmp;
-    		return false;
+    	while(isExcessiveVal(row,col) || isDuplicated(row,col)) {
+    		table[row][col] = rand.nextInt(10-1)+1;
+    		
     	}
     	return true;
     }

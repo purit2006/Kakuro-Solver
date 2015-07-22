@@ -68,7 +68,7 @@ public class Main {
             }
             
             // if the value of the fitness not changing over some generation
-            else if((generationCount - newFittestGeneration) > 100 && curFittestVal == prevFittestVal){
+            else if((generationCount - newFittestGeneration) > 500 && curFittestVal == prevFittestVal){
             	System.out.println("BEFORE RESET ELITE: " + myPop.getFittest().getFitness());
             	myPop.resetElite();
             	System.out.println("AFTER RESET ELITE: "+ myPop.getFittest().getFitness());

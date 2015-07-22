@@ -37,7 +37,7 @@ public class Algorithm {
         for (int i = elitismOffset; i < pop.size(); i++) {
             KIndividual indiv1 = tournamentSelection(pop);
             KIndividual indiv2 = tournamentSelection(pop);
-            KIndividual newIndiv = crossoverV2(indiv1, indiv2);
+            KIndividual newIndiv = crossover(indiv1, indiv2);
             //newIndiv.adjust();
 
             newPopulation.saveIndividual(i, newIndiv);
@@ -114,6 +114,7 @@ public class Algorithm {
             	newSol.setCrossVal(x[i], y[i], indiv2);
             }
         }
+        
         return newSol;
     }
     
