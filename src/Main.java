@@ -24,10 +24,9 @@ public class Main {
      */
     public static void main(String[] args) {
         KakuroGUI game = new KakuroGUI();
-        
-        
-        puzzleHard();
-        game.loadPuzzle(puzzle);
+
+        //game.loadPuzzle(puzzle);
+        /*
         KUtility.init(puzzle);
         
      // Create an initial population
@@ -68,7 +67,7 @@ public class Main {
             }
             
             // if the value of the fitness not changing over some generation
-            else if((generationCount - newFittestGeneration) > 500 && curFittestVal == prevFittestVal){
+            else if((generationCount - newFittestGeneration) > 100 && curFittestVal == prevFittestVal){
             	System.out.println("BEFORE RESET ELITE: " + myPop.getFittest().getFitness());
             	myPop.resetElite();
             	System.out.println("AFTER RESET ELITE: "+ myPop.getFittest().getFitness());
@@ -82,6 +81,9 @@ public class Main {
         System.out.println("Generation: " + generationCount);
         KUtility.printRawTable(myPop.getFittest().getTable());
         System.out.println(myPop.getFittest().getFitness());
+        
+        
+        */
     }
     
     /**
@@ -241,9 +243,6 @@ public class Main {
         // 8th
         puzzle.addPlayCell(7, 4);
         puzzle.addPlayCell(7, 5);
-        
-        
-        
     }
     
     /**
@@ -280,6 +279,5 @@ public class Main {
     	// 4th
     	puzzle.addPlayCell(3, 1);
     	puzzle.addPlayCell(3, 2);
-    	
     }
 }

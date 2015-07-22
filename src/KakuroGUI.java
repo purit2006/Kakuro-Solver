@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
@@ -23,7 +24,7 @@ import java.io.File;
 /**
  * Creates a GUI for playing Kakuro game.
  *
- * @author Purit
+ * @author Purit Thong-On 1106
  * @author Marcus Vinicius Pereira Araujo 1106149
  * @author Piyapat Russamitinakornkul 1106291
  * 
@@ -37,7 +38,9 @@ public class KakuroGUI extends JFrame {
     // 1.1 Constants
     // 1.1.1 GUI Values
     final private static int TABLE_GAP = 1;
-    final public static String TITLE = "Kakuro Solver";
+    final private static String TITLE = "Kakuro Solver";
+    final private static String PUZZLE_ERROR_BODY = "Please load a puzzle to be solved!";
+    final private static String PUZZLE_ERROR_HEAD = "No Puzzle!";
     // 1.1.2 Image Paths
     final private static String IMAGE_EXTENSION = ".png";
     final private static String IMAGE_PATH = "buttons/";
@@ -50,6 +53,7 @@ public class KakuroGUI extends JFrame {
     final private static int RIGHT_Y = 16;
     final private static int FONT_SIZE = 16;
     final private static String FONT_NAME = "Times New Roman";
+    final private static String SOLVE = "Solving Attempt: ";
     
     // 1.2 Game Data
     // 1.2.1 Game Component table and maps
@@ -64,6 +68,7 @@ public class KakuroGUI extends JFrame {
     final private JPanel puzzleRow = new JPanel();
     final private JPanel inputRow = new JPanel();
     final private JToolBar toolbar = new JToolBar(JToolBar.VERTICAL);
+    final private JLabel solveStatus = new JLabel();
     // 1.3.1 Input Buttons
     final private JButton[] inputButtons = new JButton[9];
     final private ImageIcon[] buttonsIcon = new ImageIcon[9];
@@ -111,21 +116,53 @@ public class KakuroGUI extends JFrame {
                 IMAGE_PATH + "open" + IMAGE_EXTENSION));
         JButton saveButton = new JButton(new ImageIcon(
                 IMAGE_PATH + "save" + IMAGE_EXTENSION));
-        JButton newButton = new JButton(new ImageIcon(
-                IMAGE_PATH + "new" + IMAGE_EXTENSION));
         JButton solveButton = new JButton(new ImageIcon(
                 IMAGE_PATH + "solve" + IMAGE_EXTENSION));
         
         // Set Buttons' Properties
         openButton.setFocusPainted(false);
         saveButton.setFocusPainted(false);
-        newButton.setFocusPainted(false);
         solveButton.setFocusPainted(false);
         
+        // Assign button responsibilities
         openButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ;
+                // Create an "OPEN" dialog box
+                KakuroOpener puzzleLoader = new KakuroOpener();
+                // Get a file data
+                KakuroTable temp = puzzleLoader.LoadFile();
+                // Load a kakuro puzzle from file only if the data is not null
+                if(temp != null)
+                    loadPuzzle(temp);
+            }
+        });
+        
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create a "SAVE" dialog box
+                KakuroSaver fileWriter = new KakuroSaver(table);
+                // Write a puzzle to the file
+                fileWriter.saveFile();
+            }
+        });
+        
+        solveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Only solve the puzzle when it exists!
+                if(table == null) {
+                    JOptionPane.showMessageDialog(
+                    null,
+                    PUZZLE_ERROR_BODY,
+                    PUZZLE_ERROR_HEAD,
+                    JOptionPane.ERROR_MESSAGE);
+                    return ;
+                }
+                
+                Thread solverThread = new Thread(new Solver());
+                solverThread.start();
             }
         });
         
@@ -137,8 +174,8 @@ public class KakuroGUI extends JFrame {
         toolbar.add(openButton);
         toolbar.add(saveButton);
         toolbar.addSeparator();
-        toolbar.add(newButton);
         toolbar.add(solveButton);
+        toolbar.add(solveStatus);
     }
     
     private void createInputButtons() {
@@ -357,21 +394,63 @@ public class KakuroGUI extends JFrame {
             inputButtons[i].setEnabled(false);
     }
     
-    /**
-     * Kakuro table total columns getter.
-     * @return Number of columns in current Kakuro puzzle
-     *//*
-    @Override
-    public int getWidth() {
-        return table.getWidth();
-    }*/
-    
-    /**
-     * Kakuro table total rows getter.
-     * @return Number of rows in current Kakuro puzzle
-     *//*
-    @Override
-    public int getHeight() {
-        return table.getHeight();
-    }*/
+    public class Solver implements Runnable {
+        @Override
+        public final void run() {
+            KUtility.init(table);
+        
+            // Create an initial population
+               KPopulation myPop = new KPopulation(1000,true);
+               double curFittestVal = myPop.getFittest().getFitness();
+               double prevFittestVal;
+            // Evolve our population until we reach an optimum solution
+               int generationCount = 0;
+               int newFittestGeneration = 0;
+               while (curFittestVal > FitnessCalc.getMaxFitness()) {
+                   ++generationCount;
+                   solveStatus.setText(SOLVE + Integer.toString(generationCount));
+
+                   System.out.println("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness());
+                   try {
+                       for(int i = 0 ; i < table.getWidth() ; ++i)
+                           for(int j = 0 ; j < table.getHeight() ; ++j)
+                               if(table.isPlayCell(i, j))
+                                   table.fillCell(i, j, (int)myPop.getFittest().getTable()[i][j]);
+                       loadPuzzle(table);
+                       Thread.sleep(100);
+                   }
+                   catch(Exception trash) {
+                       trash.printStackTrace();
+                   }
+
+                   // record the current fittest value of the generation before evolving
+                   prevFittestVal = curFittestVal;
+                   // evolve : Crossover and Mutate individuals
+                   myPop = Algorithm.evolvePopulation(myPop);
+
+                   // update the current fittest value
+                   curFittestVal = myPop.getFittest().getFitness();
+
+                   // if the new fitness is found
+                   if(curFittestVal != prevFittestVal){
+                       newFittestGeneration = generationCount;
+                   }
+
+                   // if the value of the fitness not changing over some generation
+                   else if((generationCount - newFittestGeneration) > 100 && curFittestVal == prevFittestVal){
+                       System.out.println("BEFORE RESET ELITE: " + myPop.getFittest().getFitness());
+                       myPop.resetElite();
+                       System.out.println("AFTER RESET ELITE: "+ myPop.getFittest().getFitness());
+
+                       curFittestVal = myPop.getFittest().getFitness();
+                       newFittestGeneration = generationCount;
+                   }
+
+               }
+               System.out.println("Solution found!");
+               System.out.println("Generation: " + generationCount);
+               KUtility.printRawTable(myPop.getFittest().getTable());
+               System.out.println(myPop.getFittest().getFitness());
+        }
+    }
 }
