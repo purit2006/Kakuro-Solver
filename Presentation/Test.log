@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.7.21)  23 JUL 2015 03:06
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.7.21)  23 JUL 2015 14:12
 entering extended mode
-**C:/Users/TOSHIBA/Desktop/Presentation/Test.tex
-(C:/Users/TOSHIBA/Desktop/Presentation/Test.tex
+**C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Test.tex
+(C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Test.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -753,6 +753,9 @@ Package: beamercolorthemedefault 2012/12/19  (rcs-revision 1686da3db3c9)
 (C:\Users\TOSHIBA\AppData\Roaming\MiKTeX\2.9\tex\latex\beamer\base\themes\inner
 \beamerinnerthemedefault.sty
 Package: beamerinnerthemedefault 2014/06/30  (rcs-revision 580088513a67)
+
+! I can't write on file `Test.pdf'.
+Please type another file name for output: Test.pdf
 \beamer@dima=\dimen186
 \beamer@dimb=\dimen187
 )
@@ -796,7 +799,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\\' on input line 8.
 
-(C:\Users\TOSHIBA\Desktop\Presentation\Test.aux)
+(C:\Users\TOSHIBA\Documents\GitHub\Kakuro-Solver\Presentation\Test.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
@@ -875,8 +878,8 @@ LaTeX Info: Redefining \ref on input line 13.
 LaTeX Info: Redefining \pageref on input line 13.
 LaTeX Info: Redefining \nameref on input line 13.
 
-(C:\Users\TOSHIBA\Desktop\Presentation\Test.out)
-(C:\Users\TOSHIBA\Desktop\Presentation\Test.out)
+(C:\Users\TOSHIBA\Documents\GitHub\Kakuro-Solver\Presentation\Test.out)
+(C:\Users\TOSHIBA\Documents\GitHub\Kakuro-Solver\Presentation\Test.out)
 \@outlinefile=\write5
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 13.
@@ -959,7 +962,7 @@ Dictionary: translator-theorem-dictionary, Language: English
 )
 LaTeX Info: Redefining \includegraphics on input line 13.
 
-(C:\Users\TOSHIBA\Desktop\Presentation\Test.nav)
+(C:\Users\TOSHIBA\Documents\GitHub\Kakuro-Solver\Presentation\Test.nav)
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 (Font)              size <5> substituted on input line 17.
@@ -971,8 +974,8 @@ Package pdftex.def Info: icon.png used on input line 17.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [1{C:/Users/TOSHIBA/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
- <C:/Users/TOSHIBA/Desktop/Presentation/icon.png>] (C:\Users\TOSHIBA\Desktop\Pr
-esentation\Test.toc)
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/icon.png>]
+(C:\Users\TOSHIBA\Documents\GitHub\Kakuro-Solver\Presentation\Test.toc)
 File: icon.png Graphic file (type png)
 
 <use icon.png>
@@ -1018,10 +1021,11 @@ Package pdftex.def Info: icon.png used on input line 51.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [6
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Profile2.jpg>]
-<Solved2.jpg, id=533, 903.375pt x 406.51875pt>
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Profile2.jpg>] <
+Solved2.jpg, id=533, 903.375pt x 406.51875pt>
 File: Solved2.jpg Graphic file (type jpg)
- <use Solved2.jpg>
+
+<use Solved2.jpg>
 Package pdftex.def Info: Solved2.jpg used on input line 58.
 (pdftex.def)             Requested size: 343.28607pt x 154.47871pt.
 
@@ -1035,10 +1039,11 @@ Package pdftex.def Info: icon.png used on input line 58.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [7
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Solved2.jpg>]
-<Statistics2.jpg, id=595, 827.09pt x 294.09875pt>
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Solved2.jpg>] <S
+tatistics2.jpg, id=595, 827.09pt x 294.09875pt>
 File: Statistics2.jpg Graphic file (type jpg)
- <use Statistics2.jpg>
+
+<use Statistics2.jpg>
 Package pdftex.def Info: Statistics2.jpg used on input line 65.
 (pdftex.def)             Requested size: 314.29745pt x 111.75868pt.
 
@@ -1052,20 +1057,21 @@ Package pdftex.def Info: icon.png used on input line 65.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [8
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Statistics2.jpg>]
-<Submission2-1.jpg, id=656, 813.0375pt x 713.66624pt>
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Statistics2.jpg>
+] <Submission2-1.jpg, id=656, 813.0375pt x 713.66624pt>
 File: Submission2-1.jpg Graphic file (type jpg)
- <use Submission2-1.jpg>
+
+<use Submission2-1.jpg>
 Package pdftex.def Info: Submission2-1.jpg used on input line 72.
 (pdftex.def)             Requested size: 243.91313pt x 214.10152pt.
 File: icon.png Graphic file (type png)
-
-<use icon.png>
+ <use icon.png>
 Package pdftex.def Info: icon.png used on input line 72.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [9
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Submission2-1.jpg>]
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Submission2-1.jp
+g>]
 <Submission2-2.jpg, id=717, 813.0375pt x 698.61pt>
 File: Submission2-2.jpg Graphic file (type jpg)
  <use Submission2-2.jpg>
@@ -1078,31 +1084,31 @@ Package pdftex.def Info: icon.png used on input line 79.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [10
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Submission2-2.jpg>]
-<Submission2-3.jpg, id=778, 813.0375pt x 418.56375pt>
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Submission2-2.jp
+g>] <Submission2-3.jpg, id=778, 813.0375pt x 418.56375pt>
 File: Submission2-3.jpg Graphic file (type jpg)
- <use Submission2-3.jpg>
+
+<use Submission2-3.jpg>
 Package pdftex.def Info: Submission2-3.jpg used on input line 86.
 (pdftex.def)             Requested size: 284.56738pt x 146.4995pt.
 File: icon.png Graphic file (type png)
-
-<use icon.png>
+ <use icon.png>
 Package pdftex.def Info: icon.png used on input line 86.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [11
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Submission2-3.jpg>]
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Submission2-3.jp
+g>]
 File: icon.png Graphic file (type png)
-
-<use icon.png>
+ <use icon.png>
 Package pdftex.def Info: icon.png used on input line 91.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [12
 
-] <Profile3.png, id=900, 885.3075pt x 380.42125pt>
+]
+<Profile3.png, id=900, 885.3075pt x 380.42125pt>
 File: Profile3.png Graphic file (type png)
-
-<use Profile3.png>
+ <use Profile3.png>
 Package pdftex.def Info: Profile3.png used on input line 98.
 (pdftex.def)             Requested size: 318.71045pt x 136.95154pt.
 
@@ -1116,21 +1122,22 @@ Package pdftex.def Info: icon.png used on input line 98.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [13
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Profile3.png (PNG copy)>] <Solved3.png,
- id=962, 766.865pt x 389.455pt>
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Profile3.png (PN
+G copy)>] <Solved3.png, id=962, 766.865pt x 389.455pt>
 File: Solved3.png Graphic file (type png)
- <use Solved3.png>
+
+<use Solved3.png>
 Package pdftex.def Info: Solved3.png used on input line 105.
 (pdftex.def)             Requested size: 291.41173pt x 147.99443pt.
 File: icon.png Graphic file (type png)
-
-<use icon.png>
+ <use icon.png>
 Package pdftex.def Info: icon.png used on input line 105.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [14
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Solved3.png (PNG copy)>] <Statistics3.p
-ng, id=1023, 824.07875pt x 291.0875pt>
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Solved3.png (PNG
+ copy)>]
+<Statistics3.png, id=1023, 824.07875pt x 291.0875pt>
 File: Statistics3.png Graphic file (type png)
  <use Statistics3.png>
 Package pdftex.def Info: Statistics3.png used on input line 112.
@@ -1146,20 +1153,22 @@ Package pdftex.def Info: icon.png used on input line 112.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [15
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Statistics3.png (PNG copy)>] <Submissio
-n3-1.png, id=1084, 813.0375pt x 677.53125pt>
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Statistics3.png 
+(PNG copy)>]
+<Submission3-1.png, id=1084, 813.0375pt x 677.53125pt>
 File: Submission3-1.png Graphic file (type png)
-
-<use Submission3-1.png>
+ <use Submission3-1.png>
 Package pdftex.def Info: Submission3-1.png used on input line 119.
 (pdftex.def)             Requested size: 243.91313pt x 203.26094pt.
 File: icon.png Graphic file (type png)
- <use icon.png>
+
+<use icon.png>
 Package pdftex.def Info: icon.png used on input line 119.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [16
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Submission3-1.png (PNG copy)>]
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Submission3-1.pn
+g (PNG copy)>]
 <Submission3-2.png, id=1145, 813.0375pt x 749.80125pt>
 File: Submission3-2.png Graphic file (type png)
  <use Submission3-2.png>
@@ -1172,20 +1181,22 @@ Package pdftex.def Info: icon.png used on input line 126.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [17
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Submission3-2.png (PNG copy)>] <Submiss
-ion3-3.png, id=1206, 813.0375pt x 695.59875pt>
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Submission3-2.pn
+g (PNG copy)>]
+<Submission3-3.png, id=1206, 813.0375pt x 695.59875pt>
 File: Submission3-3.png Graphic file (type png)
-
-<use Submission3-3.png>
+ <use Submission3-3.png>
 Package pdftex.def Info: Submission3-3.png used on input line 133.
 (pdftex.def)             Requested size: 243.91313pt x 208.68123pt.
 File: icon.png Graphic file (type png)
- <use icon.png>
+
+<use icon.png>
 Package pdftex.def Info: icon.png used on input line 133.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [18
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Submission3-3.png (PNG copy)>]
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Submission3-3.pn
+g (PNG copy)>]
 <Submission3-4.png, id=1267, 813.0375pt x 464.73625pt>
 File: Submission3-4.png Graphic file (type png)
  <use Submission3-4.png>
@@ -1202,7 +1213,8 @@ Package pdftex.def Info: icon.png used on input line 140.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [19
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Submission3-4.png (PNG copy)>]
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Submission3-4.pn
+g (PNG copy)>]
 File: icon.png Graphic file (type png)
  <use icon.png>
 Package pdftex.def Info: icon.png used on input line 145.
@@ -1226,20 +1238,20 @@ Package pdftex.def Info: icon.png used on input line 152.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [21
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Profile1.jpg>]
-<Solved1.jpg, id=1451, 611.28375pt x 489.32813pt>
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Profile1.jpg>] <
+Solved1.jpg, id=1451, 611.28375pt x 489.32813pt>
 File: Solved1.jpg Graphic file (type jpg)
- <use Solved1.jpg>
+
+<use Solved1.jpg>
 Package pdftex.def Info: Solved1.jpg used on input line 159.
 (pdftex.def)             Requested size: 244.50917pt x 195.72777pt.
 File: icon.png Graphic file (type png)
-
-<use icon.png>
+ <use icon.png>
 Package pdftex.def Info: icon.png used on input line 159.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [22
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Solved1.jpg>]
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Solved1.jpg>]
 <Statistics1.jpg, id=1512, 678.28406pt x 360.59718pt>
 File: Statistics1.jpg Graphic file (type jpg)
  <use Statistics1.jpg>
@@ -1252,20 +1264,21 @@ Package pdftex.def Info: icon.png used on input line 166.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [23
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Statistics1.jpg>]
-<Submission1-1.jpg, id=1573, 609.77812pt x 511.9125pt>
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Statistics1.jpg>
+] <Submission1-1.jpg, id=1573, 609.77812pt x 511.9125pt>
 File: Submission1-1.jpg Graphic file (type jpg)
- <use Submission1-1.jpg>
+
+<use Submission1-1.jpg>
 Package pdftex.def Info: Submission1-1.jpg used on input line 173.
 (pdftex.def)             Requested size: 243.90692pt x 204.76137pt.
 File: icon.png Graphic file (type png)
-
-<use icon.png>
+ <use icon.png>
 Package pdftex.def Info: icon.png used on input line 173.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [24
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Submission1-1.jpg>]
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Submission1-1.jp
+g>]
 <Submission1-2.jpg, id=1634, 609.77812pt x 490.83376pt>
 File: Submission1-2.jpg Graphic file (type jpg)
 
@@ -1278,32 +1291,34 @@ Package pdftex.def Info: icon.png used on input line 180.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [25
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Submission1-2.jpg>] <Submission1-3.jpg,
- id=1696, 609.77812pt x 511.9125pt>
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Submission1-2.jp
+g>]
+<Submission1-3.jpg, id=1696, 609.77812pt x 511.9125pt>
 File: Submission1-3.jpg Graphic file (type jpg)
-
-<use Submission1-3.jpg>
+ <use Submission1-3.jpg>
 Package pdftex.def Info: Submission1-3.jpg used on input line 187.
 (pdftex.def)             Requested size: 243.90692pt x 204.76137pt.
 File: icon.png Graphic file (type png)
- <use icon.png>
+
+<use icon.png>
 Package pdftex.def Info: icon.png used on input line 187.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [26
 
- <C:/Users/TOSHIBA/Desktop/Presentation/Submission1-3.jpg>]
-LaTeX Font Info:    Try loading font information for U+msa on input line 203.
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/Submission1-3.jp
+g>]
+LaTeX Font Info:    Try loading font information for U+msa on input line 204.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 203.
+LaTeX Font Info:    Try loading font information for U+msb on input line 204.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 203.
+line 204.
 
 (C:\Users\TOSHIBA\AppData\Roaming\MiKTeX\2.9\tex\latex\sansmathaccent\ot1mathke
 rncmss.fd
@@ -1312,21 +1327,21 @@ thkerncmss.
 )
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 203.
+Package pdftex.def Info: icon.png used on input line 204.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [27
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 210.
+Package pdftex.def Info: icon.png used on input line 211.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [28
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 217.
+Package pdftex.def Info: icon.png used on input line 218.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [29
 
@@ -1334,28 +1349,28 @@ Package pdftex.def Info: icon.png used on input line 217.
 File: icon.png Graphic file (type png)
 
 <use icon.png>
-Package pdftex.def Info: icon.png used on input line 228.
+Package pdftex.def Info: icon.png used on input line 229.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [30
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 228.
+Package pdftex.def Info: icon.png used on input line 229.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [31
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 228.
+Package pdftex.def Info: icon.png used on input line 229.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [32
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 238.
+Package pdftex.def Info: icon.png used on input line 239.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
 
 [33
@@ -1363,21 +1378,21 @@ Package pdftex.def Info: icon.png used on input line 238.
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 238.
+Package pdftex.def Info: icon.png used on input line 239.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [34
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 238.
+Package pdftex.def Info: icon.png used on input line 239.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [35
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 246.
+Package pdftex.def Info: icon.png used on input line 247.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [36
 
@@ -1385,7 +1400,7 @@ Package pdftex.def Info: icon.png used on input line 246.
 File: icon.png Graphic file (type png)
 
 <use icon.png>
-Package pdftex.def Info: icon.png used on input line 246.
+Package pdftex.def Info: icon.png used on input line 247.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [37
 
@@ -1393,123 +1408,122 @@ Package pdftex.def Info: icon.png used on input line 246.
 File: kakuroExample.jpg Graphic file (type jpg)
 
 <use kakuroExample.jpg>
-Package pdftex.def Info: kakuroExample.jpg used on input line 264.
+Package pdftex.def Info: kakuroExample.jpg used on input line 265.
 (pdftex.def)             Requested size: 91.84149pt x 27.40189pt.
  <kakuro.jpg, id=2429, 323.59702pt x 323.59702pt>
 File: kakuro.jpg Graphic file (type jpg)
 
 <use kakuro.jpg>
-Package pdftex.def Info: kakuro.jpg used on input line 264.
+Package pdftex.def Info: kakuro.jpg used on input line 265.
 (pdftex.def)             Requested size: 161.7981pt x 161.7981pt.
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 264.
+Package pdftex.def Info: icon.png used on input line 265.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [38
 
- <C:/Users/TOSHIBA/Desktop/Presentation/kakuroExample.jpg> <C:/Users/TOSHIBA/De
-sktop/Presentation/kakuro.jpg>]
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/kakuroExample.jp
+g> <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/kakuro.jpg>]
 File: icon.png Graphic file (type png)
-
-<use icon.png>
-Package pdftex.def Info: icon.png used on input line 274.
+ <use icon.png>
+Package pdftex.def Info: icon.png used on input line 275.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [39
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 274.
+Package pdftex.def Info: icon.png used on input line 275.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [40
 
 ]
 File: icon.png Graphic file (type png)
- <use icon.png>
-Package pdftex.def Info: icon.png used on input line 274.
+
+<use icon.png>
+Package pdftex.def Info: icon.png used on input line 275.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [41
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 274.
+Package pdftex.def Info: icon.png used on input line 275.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
+ [42
 
-[42
-
-] <KakuroImpl.jpg, id=2732, 658.46pt x 354.32375pt>
+]
+<KakuroImpl.jpg, id=2732, 658.46pt x 354.32375pt>
 File: KakuroImpl.jpg Graphic file (type jpg)
  <use KakuroImpl.jpg>
-Package pdftex.def Info: KakuroImpl.jpg used on input line 280.
+Package pdftex.def Info: KakuroImpl.jpg used on input line 281.
 (pdftex.def)             Requested size: 316.05722pt x 170.07346pt.
 
-Overfull \hbox (8.76735pt too wide) in paragraph at lines 280--280
+Overfull \hbox (8.76735pt too wide) in paragraph at lines 281--281
 [][]  
  []
 
 File: icon.png Graphic file (type png)
 <use icon.png>
-Package pdftex.def Info: icon.png used on input line 280.
+Package pdftex.def Info: icon.png used on input line 281.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [43
 
- <C:/Users/TOSHIBA/Desktop/Presentation/KakuroImpl.jpg>]
+ <C:/Users/TOSHIBA/Documents/GitHub/Kakuro-Solver/Presentation/KakuroImpl.jpg>]
 File: icon.png Graphic file (type png)
-
-<use icon.png>
-Package pdftex.def Info: icon.png used on input line 292.
+ <use icon.png>
+Package pdftex.def Info: icon.png used on input line 293.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [44
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 292.
+Package pdftex.def Info: icon.png used on input line 293.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [45
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 292.
+Package pdftex.def Info: icon.png used on input line 293.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
- [46
+
+[46
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 292.
+Package pdftex.def Info: icon.png used on input line 293.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
-
-[47
+ [47
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 305.
+Package pdftex.def Info: icon.png used on input line 306.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [48
 
 ]
 File: icon.png Graphic file (type png)
  <use icon.png>
-Package pdftex.def Info: icon.png used on input line 314.
+Package pdftex.def Info: icon.png used on input line 315.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [49
 
 ]
 File: icon.png Graphic file (type png)
- <use icon.png>
-Package pdftex.def Info: icon.png used on input line 314.
+
+<use icon.png>
+Package pdftex.def Info: icon.png used on input line 315.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [50
 
 ]
 File: icon.png Graphic file (type png)
-
-<use icon.png>
-Package pdftex.def Info: icon.png used on input line 322.
+ <use icon.png>
+Package pdftex.def Info: icon.png used on input line 323.
 (pdftex.def)             Requested size: 28.4524pt x 28.45274pt.
  [51
 
@@ -1517,11 +1531,12 @@ Package pdftex.def Info: icon.png used on input line 322.
 \tf@nav=\write6
 \tf@toc=\write7
 \tf@snm=\write8
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 324.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 324.
- (C:\Users\TOSHIBA\Desktop\Presentation\Test.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 324.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 324.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 325.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 325.
+
+(C:\Users\TOSHIBA\Documents\GitHub\Kakuro-Solver\Presentation\Test.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 325.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 325.
 Package rerunfilecheck Info: File `Test.out' has not changed.
 (rerunfilecheck)             Checksum: 8D42902D0F4695C1FB41A0850933C05E;836.
 
@@ -1529,22 +1544,22 @@ Package rerunfilecheck Info: File `Test.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 324.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 325.
  ) 
 Here is how much of TeX's memory you used:
  17051 strings out of 493921
- 331635 string characters out of 3144870
- 417417 words of memory out of 3000000
+ 331980 string characters out of 3144870
+ 417418 words of memory out of 3000000
  19808 multiletter control sequences out of 15000+200000
  11358 words of font info for 41 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 56i,20n,62p,452b,757s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,20n,62p,475b,757s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss10.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss12.pfb><C
 :/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/P
 rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Pr
 ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on Test.pdf (51 pages, 3716566 bytes).
+Output written on Test.pdf (51 pages, 3716602 bytes).
 PDF statistics:
  3325 PDF objects out of 3580 (max. 8388607)
  115 named destinations out of 1000 (max. 500000)
